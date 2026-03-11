@@ -1,0 +1,66 @@
+system:
+  name: "Health Digital Twin Prediction Platform"
+  version: "1.0.0"
+  environment: "development"
+
+database:
+  postgres:
+    host: "localhost"
+    port: 5432
+    database: "health_twin_db"
+    user: "admin"
+    password: "changeme"
+  
+  neo4j:
+    uri: "bolt://localhost:7687"
+    user: "neo4j"
+    password: "changeme"
+
+data_engine:
+  auto_discovery: true
+  discovery_interval_hours: 24
+  max_concurrent_downloads: 5
+  data_quality_threshold: 0.6
+  storage_path: "data/raw"
+
+synthetic_data:
+  enabled: true
+  population_size: 1000000
+  disease_models:
+    - cardiovascular
+    - diabetes
+    - cancer
+    - respiratory
+  synthetic_negative_prob: 0.3
+  synthetic_partial_prob: 0.2
+
+agents:
+  enabled_agents:
+    - cardiology
+    - metabolic
+    - lifestyle
+    - epidemiology
+    - mental_health
+  reasoning_mode: "swarm"
+  consensus_threshold: 0.7
+
+simulation:
+  time_horizon_years: 10
+  simulation_steps: 100
+  monte_carlo_samples: 1000
+
+api:
+  host: "0.0.0.0"
+  port: 8000
+  cors_enabled: true
+  rate_limit: 100
+
+dashboard:
+  port: 8501
+  theme: "light"
+  auto_refresh_seconds: 30
+
+logging:
+  level: "INFO"
+  file: "logs/system.log"
+  max_size_mb: 100

@@ -1,0 +1,56 @@
+public_health_datasets:
+  - name: "CDC Wonder"
+    url: "https://wonder.cdc.gov/api"
+    type: "api"
+    categories: ["mortality", "natality", "cancer"]
+    update_frequency: "monthly"
+    
+  - name: "NHANES"
+    url: "https://wwwn.cdc.gov/nchs/nhanes"
+    type: "download"
+    categories: ["nutrition", "examination", "laboratory"]
+    update_frequency: "yearly"
+    
+  - name: "UK Biobank"
+    url: "https://biobank.ndph.ox.ac.uk"
+    type: "api"
+    categories: ["genetics", "imaging", "clinical"]
+    requires_auth: true
+    
+  - name: "MIMIC-IV"
+    url: "https://physionet.org/content/mimiciv"
+    type: "download"
+    categories: ["icu", "clinical", "laboratory"]
+    requires_auth: true
+
+research_repositories:
+  - name: "Figshare"
+    api_url: "https://api.figshare.com/v2"
+    search_keywords: ["health", "medical", "clinical", "patient"]
+    
+  - name: "Zenodo"
+    api_url: "https://zenodo.org/api"
+    search_keywords: ["cardiovascular", "diabetes", "cancer"]
+    
+  - name: "Data.gov"
+    api_url: "https://catalog.data.gov/api/3"
+    search_keywords: ["health", "disease", "mortality"]
+
+environmental_data:
+  - name: "EPA Air Quality"
+    url: "https://aqs.epa.gov/data/api"
+    type: "api"
+    
+  - name: "NOAA Climate"
+    url: "https://www.ncdc.noaa.gov/cdo-web/api/v2"
+    type: "api"
+
+medical_ontologies:
+  - name: "SNOMED CT"
+    source: "https://www.nlm.nih.gov/healthit/snomedct"
+    
+  - name: "ICD-10"
+    source: "https://www.who.int/classifications/icd"
+    
+  - name: "LOINC"
+    source: "https://loinc.org"
