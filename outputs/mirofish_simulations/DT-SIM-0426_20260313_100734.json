@@ -1,0 +1,255 @@
+{
+  "patient_id": "DT-SIM-0426",
+  "simulation_days": 1825,
+  "simulation_years": 5.0,
+  "diseases_predicted": [
+    {
+      "name": "Chronic Kidney Disease Stage 3",
+      "probability": 0.85,
+      "day_emerged": 231,
+      "causative_agents": [
+        "renal",
+        "cardiovascular",
+        "metabolic"
+      ],
+      "mechanism": "Hypertensive + diabetic nephropathy"
+    }
+  ],
+  "agent_final_states": {
+    "cardiovascular": {
+      "name": "Cardiovascular",
+      "state": {
+        "systolic_bp": 133.5,
+        "diastolic_bp": 86,
+        "heart_rate": 81,
+        "cardiac_output": 5.0,
+        "vessel_elasticity": 0.3534329637059479,
+        "atherosclerosis_level": 7.417999999999405
+      },
+      "personality": {
+        "resilience": 0.005165379587143675,
+        "reactivity": 0.6,
+        "adaptability": 0.004132303669714941,
+        "cooperation": 0.7
+      },
+      "health_status": "failing",
+      "stress_level": 1.0,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "metabolic": {
+      "name": "Metabolic",
+      "state": {
+        "glucose": 9640.602339141418,
+        "insulin": 8.804968593400414,
+        "hba1c": 7892.46958743449,
+        "insulin_sensitivity": 0.6995800839944,
+        "beta_cell_function": 0.5900456133162796,
+        "insulin_resistance": 0.30041991600560003
+      },
+      "personality": {
+        "resilience": 0.004132303669714941,
+        "reactivity": 0.7,
+        "adaptability": 0.003099227752286204,
+        "cooperation": 0.6
+      },
+      "health_status": "failing",
+      "stress_level": 0.9,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "renal": {
+      "name": "Renal",
+      "state": {
+        "egfr": 2.465079405826469,
+        "creatinine": 3245.3315625821933,
+        "filtration_capacity": 0.024650794058264692,
+        "damage_level": 3.6979999999998143
+      },
+      "personality": {
+        "resilience": 0.006198455504572408,
+        "reactivity": 0.5,
+        "adaptability": 0.005165379587143675,
+        "cooperation": 0.7
+      },
+      "health_status": "stressed",
+      "stress_level": 0.7999999999999999,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "hepatic": {
+      "name": "Hepatic",
+      "state": {
+        "alt": 1867,
+        "ast": 942.5,
+        "ldl": 21.85000000000065,
+        "hdl": 1.1,
+        "fat_content": 1.904999999999901,
+        "detox_capacity": 0.92
+      },
+      "personality": {
+        "resilience": 0.005165379587143675,
+        "reactivity": 0.6,
+        "adaptability": 0.004132303669714941,
+        "cooperation": 0.6
+      },
+      "health_status": "failing",
+      "stress_level": 1.0,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "immune": {
+      "name": "Immune",
+      "state": {
+        "wbc": 6.8,
+        "crp": 0.5,
+        "inflammation": 2.138015353446021e-17,
+        "immune_activation": 0.25
+      },
+      "personality": {
+        "resilience": 0.005165379587143675,
+        "reactivity": 0.8,
+        "adaptability": 0.004132303669714941,
+        "cooperation": 0.5
+      },
+      "health_status": "optimal",
+      "stress_level": 0.0,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "endocrine": {
+      "name": "Endocrine",
+      "state": {
+        "cortisol": 1.0,
+        "thyroid": 1.0,
+        "stress_response": 0.4
+      },
+      "personality": {
+        "resilience": 0.004132303669714941,
+        "reactivity": 0.7,
+        "adaptability": 0.004132303669714941,
+        "cooperation": 0.6
+      },
+      "health_status": "optimal",
+      "stress_level": 0.0,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    },
+    "neural": {
+      "name": "Neural",
+      "state": {
+        "stress_level": 0.7668025197035101,
+        "sleep_quality": 0.6,
+        "cognitive_function": 0.95
+      },
+      "personality": {
+        "resilience": 0.005165379587143675,
+        "reactivity": 0.6,
+        "adaptability": 0.005165379587143675,
+        "cooperation": 0.7
+      },
+      "health_status": "optimal",
+      "stress_level": 0.0,
+      "age_days": 1825,
+      "memory_count": 0,
+      "recent_memories": []
+    }
+  },
+  "environment_final_state": {
+    "composition": {
+      "glucose": 9544.196315750003,
+      "cortisol": 1.0,
+      "ldl": 21.85000000000065,
+      "hdl": 1.1,
+      "inflammation_markers": 3.988890892189853e-42,
+      "oxygen": 95.0,
+      "insulin": 10.0,
+      "inflammation": 2.138015353446021e-17
+    },
+    "external_inputs": {
+      "food_intake": 0.0,
+      "exercise": 0.26058902933066286,
+      "stress": 0.0,
+      "sleep_quality": 0.46075425508226253,
+      "medications": [],
+      "lifestyle_stress": 0.6168025197035101,
+      "food_glucose": 7.228578054025821,
+      "dietary_fat": 121.61826415431764,
+      "calories": 2967.987541811081
+    },
+    "day": 1825,
+    "timestamp": "2026-03-13 10:07:34.313364"
+  },
+  "disease_pathways": {
+    "Chronic Kidney Disease Stage 3": {
+      "disease": "Chronic Kidney Disease Stage 3",
+      "emergence_day": 231,
+      "causative_agents": [
+        "renal",
+        "cardiovascular",
+        "metabolic"
+      ],
+      "mechanism": "Hypertensive + diabetic nephropathy",
+      "key_events": [
+        {
+          "day": 226,
+          "event": "metabolic agent stressed",
+          "stress_level": 0.9
+        },
+        {
+          "day": 227,
+          "event": "cardiovascular agent stressed",
+          "stress_level": 1.0
+        },
+        {
+          "day": 227,
+          "event": "metabolic agent stressed",
+          "stress_level": 0.9
+        },
+        {
+          "day": 228,
+          "event": "cardiovascular agent stressed",
+          "stress_level": 1.0
+        },
+        {
+          "day": 228,
+          "event": "metabolic agent stressed",
+          "stress_level": 0.9
+        },
+        {
+          "day": 229,
+          "event": "cardiovascular agent stressed",
+          "stress_level": 1.0
+        },
+        {
+          "day": 229,
+          "event": "metabolic agent stressed",
+          "stress_level": 0.9
+        },
+        {
+          "day": 230,
+          "event": "renal agent stressed",
+          "stress_level": 0.68884251578807
+        },
+        {
+          "day": 230,
+          "event": "cardiovascular agent stressed",
+          "stress_level": 1.0
+        },
+        {
+          "day": 230,
+          "event": "metabolic agent stressed",
+          "stress_level": 0.9
+        }
+      ],
+      "probability": 0.85
+    }
+  },
+  "summary": "Parallel Digital Patient Simulation Report\nPatient ID: DT-SIM-0426\nSimulation: 1825 days (5.0 years)\n\nDiseases Predicted to Emerge:\n  - Chronic Kidney Disease Stage 3: 85.0% (Day 231, ~0.6 years)\n    Mechanism: Hypertensive + diabetic nephropathy\n\nFinal Agent States:\n  - Cardiovascular: failing (stress: 100.0%)\n  - Metabolic: failing (stress: 90.0%)\n  - Renal: stressed (stress: 80.0%)\n  - Hepatic: failing (stress: 100.0%)\n  - Immune: optimal (stress: 0.0%)\n  - Endocrine: optimal (stress: 0.0%)\n  - Neural: optimal (stress: 0.0%)\n"
+}
