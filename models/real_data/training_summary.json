@@ -1,0 +1,33 @@
+{
+  "trained_at": "2026-03-12T11:29:01.410263",
+  "total_samples": 102363,
+  "total_datasets": 3,
+  "average_accuracy": 0.8401703527292769,
+  "average_roc_auc": 0.8190566162905303,
+  "datasets": {
+    "diabetes_readmission": {
+      "accuracy": 0.8878353149258131,
+      "roc_auc": 0.6451397736836209,
+      "samples": 101766,
+      "features": 9,
+      "positive_rate": 0.11159915885462728,
+      "model_path": "models/real_data/diabetes_readmission_model.pkl"
+    },
+    "heart_disease_cleveland": {
+      "accuracy": 0.8360655737704918,
+      "roc_auc": 0.9285714285714286,
+      "samples": 303,
+      "features": 13,
+      "positive_rate": 0.45874587458745875,
+      "model_path": "models/real_data/heart_disease_cleveland_model.pkl"
+    },
+    "heart_disease_hungarian": {
+      "accuracy": 0.7966101694915254,
+      "roc_auc": 0.8834586466165414,
+      "samples": 294,
+      "features": 13,
+      "positive_rate": 0.36054421768707484,
+      "model_path": "models/real_data/heart_disease_hungarian_model.pkl"
+    }
+  }
+}
