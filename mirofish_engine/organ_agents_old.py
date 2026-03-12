@@ -1,5 +1,5 @@
 """
-Specific Organ/System Agents - FIXED VERSION with realistic disease emergence
+Specific Organ/System Agents
 Each with unique physiological logic and interaction patterns
 """
 
@@ -29,34 +29,26 @@ class CardiovascularAgent(BodySystemAgent):
         # Get signals from environment
         signals = perceptions.get('signals_for_me', {})
         
-        # Respond to glucose levels (from Metabolic) - FIXED: lower threshold, faster damage
+        # Respond to glucose levels (from Metabolic)
         glucose = signals.get('glucose', 5.0)
-        if glucose > 6.5:  # Lower threshold
+        if glucose > 7.0:
             # High glucose damages vessels
-            self.state['vessel_elasticity'] *= 0.9995  # Faster decline
-            self.state['atherosclerosis_level'] += 0.002  # Faster accumulation
-            self.stress_level += 0.015
+            self.state['vessel_elasticity'] *= 0.999
+            self.state['atherosclerosis_level'] += 0.001
+            self.stress_level += 0.01
             decision['signals_to_send']['vessel_damage'] = True
         
-        # Respond to stress hormones (from Endocrine) - FIXED: lower threshold
+        # Respond to stress hormones (from Endocrine)
         cortisol = signals.get('cortisol', 1.0)
-        if cortisol > 1.2:  # Lower threshold
+        if cortisol > 1.5:
             # Stress increases BP and HR
-            bp_increase = 1.5 if cortisol > 1.5 else 0.5
-            self.state['systolic_bp'] += bp_increase
-            self.state['heart_rate'] += 3
-            self.stress_level += 0.01
+            self.state['systolic_bp'] += 2
+            self.state['heart_rate'] += 5
             decision['signals_to_send']['elevated_bp'] = self.state['systolic_bp']
         
-        # Respond to inflammation (from Immune) - FIXED: lower threshold
+        # Respond to inflammation (from Immune)
         inflammation = signals.get('inflammation', 0.0)
-        if inflammation > 0.3:  # Lower threshold
-            self.state['atherosclerosis_level'] += 0.003
-            self.stress_level += 0.01
-        
-        # LDL contributes to atherosclerosis - NEW
-        ldl = signals.get('ldl', 2.5)
-        if ldl > 3.5:
+        if inflammation > 0.5:
             self.state['atherosclerosis_level'] += 0.002
         
         # Send oxygen and nutrients to all systems
@@ -94,25 +86,17 @@ class MetabolicAgent(BodySystemAgent):
             insulin_needed = food_glucose * 2.0 / self.state['insulin_sensitivity']
             self.state['insulin'] += insulin_needed
             
-            # Beta cells get stressed if overworked - FIXED: faster decline
+            # Beta cells get stressed if overworked
             if insulin_needed > 50:
-                self.state['beta_cell_function'] *= 0.9995  # Faster decline
-                self.stress_level += 0.02
+                self.state['beta_cell_function'] *= 0.999
+                self.stress_level += 0.01
         
-        # Respond to stress hormones - FIXED: lower threshold, faster damage
+        # Respond to stress hormones (cortisol increases insulin resistance)
         cortisol = signals.get('cortisol', 1.0)
-        if cortisol > 1.2:  # Lower threshold
-            # Chronic cortisol exposure damages insulin sensitivity
-            decline_rate = 0.9995 if cortisol > 1.5 else 0.9998
-            self.state['insulin_sensitivity'] *= decline_rate
+        if cortisol > 1.5:
+            self.state['insulin_sensitivity'] *= 0.998
             self.state['insulin_resistance'] = 1.0 - self.state['insulin_sensitivity']
-            self.stress_level += 0.015
             decision['signals_to_send']['insulin_resistance_rising'] = True
-        
-        # Chronic high glucose damages beta cells - NEW
-        if self.state['glucose'] > 6.0:
-            self.state['beta_cell_function'] *= 0.9998
-            self.stress_level += 0.01
         
         # Glucose regulation
         if self.state['glucose'] > 5.5:
@@ -123,24 +107,18 @@ class MetabolicAgent(BodySystemAgent):
             )
             self.state['glucose'] -= glucose_lowered
             self.state['insulin'] -= glucose_lowered * 10
-            
-            # If can't lower glucose effectively, stress increases - NEW
-            if glucose_lowered < 0.1:
-                self.stress_level += 0.02
         
-        # Update HbA1c - FIXED: faster accumulation
-        self.state['hba1c'] = self.state['hba1c'] * 0.997 + self.state['glucose'] * 0.003
+        # Update HbA1c (slow-moving average)
+        self.state['hba1c'] = self.state['hba1c'] * 0.99 + self.state['glucose'] * 0.01
         
         # Send glucose to all systems
         decision['signals_to_send']['glucose'] = self.state['glucose']
         decision['signals_to_send']['insulin_resistance'] = self.state['insulin_resistance']
         
-        # Alert if diabetes emerging - FIXED: earlier warning
+        # Alert if diabetes emerging
         if self.state['hba1c'] > 6.5:
             decision['signals_to_send']['diabetes_alert'] = True
             self.stress_level = 0.8
-        elif self.state['hba1c'] > 6.0:
-            self.stress_level = max(self.stress_level, 0.5)
         
         return decision
     
@@ -299,14 +277,14 @@ class EndocrineAgent(BodySystemAgent):
         decision = super().decide(perceptions)
         signals = perceptions.get('signals_for_me', {})
         
-        # Respond to stress from Neural agent - FIXED: lower threshold, slower recovery
+        # Respond to stress from Neural agent
         stress_signal = signals.get('stress_level', 0.0)
-        if stress_signal > 0.4:  # Lower threshold
-            self.state['cortisol'] += 0.08
+        if stress_signal > 0.5:
+            self.state['cortisol'] += 0.1
             self.state['stress_response'] = stress_signal
         else:
-            # Cortisol returns to baseline slowly
-            self.state['cortisol'] = max(1.0, self.state['cortisol'] * 0.98)
+            # Cortisol returns to baseline
+            self.state['cortisol'] = max(1.0, self.state['cortisol'] * 0.95)
         
         # Send hormones to all systems
         decision['signals_to_send']['cortisol'] = self.state['cortisol']
@@ -336,13 +314,9 @@ class NeuralAgent(BodySystemAgent):
         lifestyle_stress = signals.get('lifestyle_stress', 0.0)
         self.state['stress_level'] = lifestyle_stress
         
-        # Poor sleep increases stress - FIXED: stronger effect
-        if self.state['sleep_quality'] < 0.7:
-            self.state['stress_level'] += 0.15
-        
-        # Maintain baseline stress if sedentary/poor lifestyle - NEW
-        if self.state['stress_level'] < 0.4:
-            self.state['stress_level'] = 0.4  # Chronic baseline stress
+        # Poor sleep increases stress
+        if self.state['sleep_quality'] < 0.6:
+            self.state['stress_level'] += 0.1
         
         # Send stress signals to endocrine
         decision['signals_to_send']['stress_level'] = self.state['stress_level']
