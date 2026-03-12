@@ -306,4 +306,24 @@ For issues or questions, refer to the documentation in `docs/` directory.
 
 ---
 
+Quick Commands
+Start the interface:
+
+bash
+cd /home/tc115/Yue/Patient_Digital_Twin_Systems
+./start_web_interface.sh
+Or manually:
+
+bash
+streamlit run web_app.py --server.port 8501
+Stop the interface:
+
+bash
+pkill -f streamlit
+View logs:
+
+bash
+tail -f streamlit.log
+
+
 **Built with ❤️ for advancing personalized healthcare through AI**
