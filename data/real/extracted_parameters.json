@@ -1,0 +1,20 @@
+{
+  "metabolic": {
+    "hba1c_mean": 7.396345046421436,
+    "hba1c_std": 1.2825798329564704,
+    "readmission_30day": 0.11159915885462728,
+    "readmission_any": 0.4608808442898414,
+    "medications_mean": 16.021844230882614,
+    "medications_std": 8.127566209167284,
+    "hospital_days_mean": 4.395986871843248,
+    "hospital_days_std": 2.985107767471267,
+    "age_mean": 65.96702238468644
+  },
+  "cardiovascular": {},
+  "source": "real_patient_data",
+  "datasets": {
+    "diabetes": "UCI Diabetes 130-US hospitals (100k patients)",
+    "heart_disease": "UCI Heart Disease (Cleveland + Hungarian)"
+  },
+  "extraction_date": "2026-03-13T13:41:53.066448"
+}

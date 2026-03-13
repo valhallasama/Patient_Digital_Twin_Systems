@@ -1,0 +1,52 @@
+{
+  "metabolic": {
+    "n_patients": 101766,
+    "mean_age": 66.0,
+    "hba1c_mean": 7.4,
+    "hba1c_std": 1.28,
+    "readmission_30day": 0.112,
+    "readmission_any": 0.461,
+    "medications_mean": 16.0,
+    "medications_std": 8.1,
+    "hospital_days_mean": 4.4,
+    "hospital_days_std": 3.0
+  },
+  "cardiovascular": {
+    "n_patients": 595,
+    "bp_mean": 130,
+    "bp_std": 15,
+    "cholesterol_mean": 240,
+    "cholesterol_std": 50,
+    "max_hr_mean": 150,
+    "disease_prevalence": 0.5
+  },
+  "hepatic": {
+    "n_patients": 583,
+    "alt_mean": 80.71355060034305,
+    "alt_std": 182.62035603420242,
+    "ast_mean": 109.91080617495712,
+    "ast_std": 288.9185290517341,
+    "bilirubin_mean": 3.298799313893653,
+    "albumin_mean": 3.141852487135506,
+    "disease_prevalence": 1.2864493996569468
+  },
+  "immune": {
+    "n_patients": 569,
+    "cancer_prevalence": 0.37258347978910367,
+    "mean_age": 50.0
+  },
+  "neural": {
+    "n_patients": 195,
+    "disease_prevalence": 0.7538461538461538,
+    "mean_age": 65.0
+  },
+  "endocrine": {
+    "n_patients": 3772,
+    "mean_age": 50.0
+  },
+  "renal": {
+    "n_patients": 101766,
+    "ckd_from_diabetes": 0.3,
+    "mean_age": 66.0
+  }
+}
