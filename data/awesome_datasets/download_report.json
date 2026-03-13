@@ -1,0 +1,210 @@
+{
+  "total_found": 1544,
+  "relevant_filtered": 99,
+  "attempted": 50,
+  "successful": 0,
+  "failed": 50,
+  "downloaded_datasets": [],
+  "failed_datasets": [
+    {
+      "name": "Harvard Medical School (HMS) LINCS Project - The Harvard Medical School (HMS) LINCS Center is [...] <http://lincs.hms.harvard.edu>",
+      "url": "http://lincs.hms.harvard.edu"
+    },
+    {
+      "name": "Harvard Medical School (HMS) LINCS Project - The Harvard Medical School (HMS) LINCS Center is [...] <http://lincs.hms.harvard.edu>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Biology/Harvard-Medical-School-LINCS-Project.yml"
+    },
+    {
+      "name": "Jail deaths in America - The U.S. government does not release jail by jail mortality data, [...] <https://www.reuters.com/investigates/special-report/usa-jails-graphic/>",
+      "url": "https://www.reuters.com/investigates/special-report/usa-jails-graphic/"
+    },
+    {
+      "name": "Jail deaths in America - The U.S. government does not release jail by jail mortality data, [...] <https://www.reuters.com/investigates/special-report/usa-jails-graphic/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Government/Jail-deaths-in-America.yml"
+    },
+    {
+      "name": "U.S. CDC Public Health datasets <https://www.cdc.gov/nchs/data_access/ftp_data.htm>",
+      "url": "https://www.cdc.gov/nchs/data_access/ftp_data.htm"
+    },
+    {
+      "name": "U.S. CDC Public Health datasets <https://www.cdc.gov/nchs/data_access/ftp_data.htm>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Government/U.S.-CDC-Public-Health-datasets.yml"
+    },
+    {
+      "name": "U.S. Food and Drug Administration (FDA) <https://open.fda.gov/index.html>",
+      "url": "https://open.fda.gov/index.html"
+    },
+    {
+      "name": "U.S. Food and Drug Administration (FDA) <https://open.fda.gov/index.html>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Government/U.S.-Food-and-Drug-Administration-FDA.yml"
+    },
+    {
+      "name": "AWS COVID-19 Datasets - We're working with organizations who make COVID-19-related data [...] <https://dj2taa9i652rf.cloudfront.net/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Aws-COVID-19.yml"
+    },
+    {
+      "name": "COVID-19 Case Surveillance Public Use Data - The COVID-19 case surveillance system database [...] <https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Public-Use-Data/vbim-akqf>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/COVID-19-Case-Surveillance-Public-Use-Data.yml"
+    },
+    {
+      "name": "Covid-19 non-processed data of Ecuador - It's a project which provides non-processed datasets [...] <https://github.com/andrab/ecuacovid>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/COVID-19-Ecuador-Data.yml"
+    },
+    {
+      "name": "2019 Novel Coronavirus COVID-19 Data Repository by Johns Hopkins CSSE - This is the data [...] <https://github.com/CSSEGISandData/COVID-19>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/COVID-19-Johns-Hopkins.yml"
+    },
+    {
+      "name": "Coronavirus (Covid-19) Data in the United States - The New York Times is releasing a series [...] <https://github.com/nytimes/covid-19-data>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/COVID-19-New-York-Times.yml"
+    },
+    {
+      "name": "COVID-19 Reported Patient Impact and Hospital Capacity by Facility - The following dataset [...] <https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-facility?SorourMo/38-Cloud-A-Cloud-Segmentation-Dataset>",
+      "url": "https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-facility?SorourMo/38-Cloud-A-Cloud-Segmentation-Dataset"
+    },
+    {
+      "name": "COVID-19 Reported Patient Impact and Hospital Capacity by Facility - The following dataset [...] <https://healthdata.gov/dataset/covid-19-reported-patient-impact-and-hospital-capacity-facility?SorourMo/38-Cloud-A-Cloud-Segmentation-Dataset>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/COVID-19-Reported-Patient-Impact-and-Hospital-Capacity-by-Facility.yml"
+    },
+    {
+      "name": "Composition of Foods Raw, Processed, Prepared USDA National Nutrient Database for Standard [...] <https://data.nal.usda.gov/dataset/composition-foods-raw-processed-prepared-usda-national-nutrient-database-standard-reference-release-27>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Composition-of-Foods-Raw-Processed-Prepared-USDA-National-Nutrient-Database-for-Standard-Reference.yml"
+    },
+    {
+      "name": "The COVID Tracking Project - The COVID Tracking Project collects and publishes the most [...] <https://covidtracking.com/data>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Covid-Tracking-Project.yml"
+    },
+    {
+      "name": "EHDP Large Health Data Sets <http://www.ehdp.com/vitalnet/datasets.htm>",
+      "url": "http://www.ehdp.com/vitalnet/datasets.htm"
+    },
+    {
+      "name": "EHDP Large Health Data Sets <http://www.ehdp.com/vitalnet/datasets.htm>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/EHDP-Large-Health-Data-Sets.yml"
+    },
+    {
+      "name": "Gapminder World demographic databases <http://www.gapminder.org/data/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Gapminder-World-demographic-databases.yml"
+    },
+    {
+      "name": "MeSH, the vocabulary thesaurus used for indexing articles for PubMed - Check under 'Obtain [...] <https://www.nlm.nih.gov/mesh/meshhome.html>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/MeSH-the-vocabulary-thesaurus-used-for-indexing-articles-for-PubMed.yml"
+    },
+    {
+      "name": "MeDAL - A large medical text dataset curated for abbreviation disambiguation - Medical [...] <https://github.com/BruceWen120/medal>",
+      "url": "https://github.com/BruceWen120/medal"
+    },
+    {
+      "name": "MeDAL - A large medical text dataset curated for abbreviation disambiguation - Medical [...] <https://github.com/BruceWen120/medal>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Medal-medical-abbreviations.yml"
+    },
+    {
+      "name": "Medicare Coverage Database (MCD), U.S. <https://www.cms.gov/medicare-coverage-database/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Medicare-Coverage-Database-MCD-U.S..yml"
+    },
+    {
+      "name": "Medicare Data Engine of medicare.gov Data <https://data.cms.gov>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Medicare-Data-Engine-of-medicare.gov-Data.yml"
+    },
+    {
+      "name": "Medicare Data File <http://go.cms.gov/19xxPN4>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Medicare-Data-File.yml"
+    },
+    {
+      "name": "Nightingale Open Science <https://docs.nightingalescience.org/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Nightingale.yml"
+    },
+    {
+      "name": "Number of Ebola Cases and Deaths in Affected Countries (2014) <https://data.humdata.org/dataset/ebola-cases-2014>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Number-of-Ebola-Cases-and-Deaths-in-Affected-Countries-2014.yml"
+    },
+    {
+      "name": "Open-ODS (structure of the UK NHS) <https://www.odsdatasearchandexport.nhs.uk/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Open-ODS.yml"
+    },
+    {
+      "name": "OpenPaymentsData, Healthcare financial relationship data <https://openpaymentsdata.cms.gov>",
+      "url": "https://openpaymentsdata.cms.gov"
+    },
+    {
+      "name": "OpenPaymentsData, Healthcare financial relationship data <https://openpaymentsdata.cms.gov>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/OpenPaymentsData-Healthcare-financial-relationship-data.yml"
+    },
+    {
+      "name": "PhysioBank Databases - A large and growing archive of physiological data. <https://www.physionet.org/physiobank/database/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/PhysioBank-Databases.yml"
+    },
+    {
+      "name": "Spanish Flu Dataset - Historical dataset about the 1918\u20131920 Spanish Flu pandemic, including [...] <https://www.kaggle.com/datasets/thepodclub/spanish-flu-dataset>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Spanish-Flu.yml"
+    },
+    {
+      "name": "The Cancer Imaging Archive (TCIA) <https://www.cancerimagingarchive.net>",
+      "url": "https://www.cancerimagingarchive.net"
+    },
+    {
+      "name": "The Cancer Imaging Archive (TCIA) <https://www.cancerimagingarchive.net>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/TCIA.yml"
+    },
+    {
+      "name": "World Health Organization Global Health Observatory <http://www.who.int/gho/en/>",
+      "url": "http://www.who.int/gho/en/"
+    },
+    {
+      "name": "World Health Organization Global Health Observatory <http://www.who.int/gho/en/>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/World-Health-Organization-Global-Health-Observatory.yml"
+    },
+    {
+      "name": "Yahoo Knowledge Graph COVID-19 Datasets - The Yahoo Knowledge Graph team at Verizon Media is [...] <https://github.com/yahoo/covid-19-data>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/Yahoo-COVID-19.yml"
+    },
+    {
+      "name": "Informatics for Integrating Biology and the Bedside <https://www.i2b2.org/NLP/DataSets/Main.php>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//Healthcare/i2b2.yml"
+    },
+    {
+      "name": "Registered Meteorites on Earth <http://publichealthintelligence.org/content/registered-meteorites-has-impacted-earth-visualized>",
+      "url": "http://publichealthintelligence.org/content/registered-meteorites-has-impacted-earth-visualized"
+    },
+    {
+      "name": "Registered Meteorites on Earth <http://publichealthintelligence.org/content/registered-meteorites-has-impacted-earth-visualized>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//MachineLearning/Registered-Meteorites-on-Earth.yml"
+    },
+    {
+      "name": "Restaurants Health Score Data in San Francisco <https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i?row_index=0>",
+      "url": "https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i?row_index=0"
+    },
+    {
+      "name": "Restaurants Health Score Data in San Francisco <https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i?row_index=0>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//MachineLearning/Restaurants-Health-Score-Data-in-San-Francisco.yml"
+    },
+    {
+      "name": "EOPC-DE-Early-Onset-Prostate-Cancer-Germany - Early Onset Prostate Cancer - Germany. [...] <https://dcc.icgc.org/projects/EOPC-DE>",
+      "url": "https://dcc.icgc.org/projects/EOPC-DE"
+    },
+    {
+      "name": "EOPC-DE-Early-Onset-Prostate-Cancer-Germany - Early Onset Prostate Cancer - Germany. [...] <https://dcc.icgc.org/projects/EOPC-DE>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//ProstateCancer/EOPC-DE-Early-Onset-Prostate-Cancer-Germany.yml"
+    },
+    {
+      "name": "Metastatic-Prostate-Adenocarcinoma-MCTP - Comprehensive profiling of 61 prostate cancer [...] <http://www.cbioportal.org/study?id=prad_mich>",
+      "url": "http://www.cbioportal.org/study?id=prad_mich"
+    },
+    {
+      "name": "Metastatic-Prostate-Adenocarcinoma-MCTP - Comprehensive profiling of 61 prostate cancer [...] <http://www.cbioportal.org/study?id=prad_mich>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//ProstateCancer/Metastatic-Prostate-Adenocarcinoma-MCTP.yml"
+    },
+    {
+      "name": "Metastatic-Prostate-Cancer-SU2CPCF-Dream-Team - Comprehensive analysis of 150 metastatic [...] <http://www.cbioportal.org/study?id=prad_su2c_2015>",
+      "url": "http://www.cbioportal.org/study?id=prad_su2c_2015"
+    },
+    {
+      "name": "Metastatic-Prostate-Cancer-SU2CPCF-Dream-Team - Comprehensive analysis of 150 metastatic [...] <http://www.cbioportal.org/study?id=prad_su2c_2015>",
+      "url": "https://github.com/awesomedata/apd-core/tree/master/core//ProstateCancer/Metastatic-Prostate-Cancer-SU2CPCF-Dream-Team.yml"
+    },
+    {
+      "name": "NPCR-2001-2015 - Database from CDC's National Program of Cancer Registries (NPCR). The [...] <https://www.cdc.gov/cancer/uscs/public-use>",
+      "url": "https://www.cdc.gov/cancer/uscs/public-use"
+    }
+  ]
+}
