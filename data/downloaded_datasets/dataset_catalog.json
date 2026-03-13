@@ -1,0 +1,513 @@
+{
+  "total_datasets": 99,
+  "sources": {
+    "kaggle": 0,
+    "uci": 0,
+    "openml": 0,
+    "data_gov": 95,
+    "physionet": 4
+  },
+  "datasets": {
+    "kaggle": [],
+    "uci": [],
+    "openml": [],
+    "data_gov": [
+      {
+        "name": "U.S. Chronic Disease Indicators",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Walkability Index",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Air Quality",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Mental Health Care in the Last 4 Weeks",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Drug overdose death rates, by drug type, sex, age, race, and Hispanic origin: United States",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Pittsburgh American Community Survey 2015 - Miscellaneous Data",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Provider of Services File - Hospital & Non-Hospital Facilities",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Disability and Health Data System (DHDS)",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Monthly Rates of Laboratory-Confirmed COVID-19 Hospitalizations from the COVID-NET Surveillance System",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Chemicals in Cosmetics",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "U.S. Chronic Disease Indicators",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Diabetes",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Emergency Department Volume and Capacity",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Maternal, Child, and Adolescent Health Needs Assessment, 2023-2024",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Conditions Contributing to COVID-19 Deaths, by State and Age, Provisional 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Diabetes State Burden Toolkit - Diabetes Mortality and Health-related Quality of Life",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Weekly Provisional Counts of Deaths by State and Select Causes, 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Hospitalization Discharge Rates",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "National Health and Nutrition Examination Survey (NHANES) \u2013 Vision and Eye Health Surveillance",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Diabetes + Hypertension (comorbidity)",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Heart Disease Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2019-2021",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Rates and Trends in Heart Disease and Stroke Mortality Among US Adults (35+) by County, Age Group, Race/Ethnicity, and Sex \u2013 2000-2019",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Conditions Contributing to COVID-19 Deaths, by State and Age, Provisional 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Weekly Provisional Counts of Deaths by State and Select Causes, 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Surgical Site Infections (SSIs) for Operative Procedures in California Hospitals",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Heart Disease Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2021-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Monthly Counts of Deaths by Select Causes, 2014-2019",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Weekly Counts of Death by Jurisdiction and Select Causes of Death",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Stroke Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2019-2021",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "National Health and Nutrition Examination Survey (NHANES) - National Cardiovascular Disease Surveillance System",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "U.S. Chronic Disease Indicators",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Air Quality",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Pittsburgh American Community Survey 2015 - Miscellaneous Data",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Chemicals in Cosmetics",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Emergency Department Volume and Capacity",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Cancer Rates",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Dr. Duke's Phytochemical and Ethnobotanical Databases",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "PLACES: Local Data for Better Health, County Data 2023 release",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Conditions Contributing to COVID-19 Deaths, by State and Age, Provisional 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "California Hospital Inpatient Mortality Rates and Quality Ratings",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Maternal, Child, and Adolescent Health Needs Assessment, 2023-2024",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Weekly Provisional Counts of Deaths by State and Select Causes, 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Surgical Site Infections (SSIs) for Operative Procedures in California Hospitals",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Monthly Counts of Deaths by Select Causes, 2014-2019",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "AH Monthly Provisional Counts of Deaths for Select Causes of Death by Sex, Age, and Race and Hispanic Origin",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "NCHS - VSRR Quarterly provisional estimates for selected indicators of mortality",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Diabetes State Burden Toolkit - Health Burden",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Monthly Provisional Counts of Deaths by Select Causes, 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "AH Provisional Diabetes Death Counts for 2020",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "AH Monthly Provisional Counts of Deaths by Age Group and HHS region for Select Causes of Death, 2019-2021",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Surgical Site Infections (SSIs) for Operative Procedures in California Hospitals",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "NCHS - VSRR Quarterly provisional estimates for selected indicators of mortality",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "AH Provisional Diabetes Death Counts for 2020",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Hepatitis C \u2013 Advanced Liver Disease Disparities Dashboard",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Datasets for \"Early microRNA responses in rodent liver mediated by furan exposure establish dose thresholds for later adverse outcomes\" manuscript",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Heart Disease Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2019-2021",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Emergency Department Volume and Capacity",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Rates and Trends in Heart Disease and Stroke Mortality Among US Adults (35+) by County, Age Group, Race/Ethnicity, and Sex \u2013 2000-2019",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "California Hospital Inpatient Mortality Rates and Quality Ratings",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Allegheny County 911 Dispatches - EMS and Fire",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Heart Disease Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2021-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Stroke Mortality Data Among US Adults (35+) by State/Territory and County \u2013 2019-2021",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "National Health and Nutrition Examination Survey (NHANES) - National Cardiovascular Disease Surveillance System",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Effects of COVID-19 on Hospital Utilization Trends",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Cardiovascular Disease Death Rates, Trends, and Excess Death Rates Among US Adults (35+) by County and Age Group \u2013 2010-2020",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Mental Health Care in the Last 4 Weeks",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Health conditions among children under age 18, by selected characteristics: United States",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Death rates for suicide, by sex, race, Hispanic origin, and age: United States",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Indicators of Anxiety or Depression Based on Reported Frequency of Symptoms During Last 7 Days",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Adult Depression (LGHC Indicator)",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Emergency Department Volume and Capacity",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Maternal, Child, and Adolescent Health Needs Assessment, 2023-2024",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Drug Use Data from Selected Hospitals",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Allegheny County 911 Dispatches - EMS and Fire",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Hospitalization Discharge Rates",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Nutrition, Physical Activity, and Obesity - Behavioral Risk Factor Surveillance System",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "National Obesity By State",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Alzheimer's Disease and Healthy Aging Data",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Emergency Department Volume and Capacity",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Maternal, Child, and Adolescent Health Needs Assessment, 2023-2024",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Fruit and Vegetable Consumption in California Residents, 2012/2013",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Nutrition, Physical Activity, and Obesity - Youth Risk Behavior Surveillance System",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Sugar-Sweetened Beverage Consumption in California Residents",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Conditions Contributing to COVID-19 Deaths, by State and Age, Provisional 2020-2023",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Obesity among children and adolescents aged 2\u201319 years, by selected characteristics: United States",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "PLACES: Local Data for Better Health, County Data 2023 release",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "500 Cities: Local Data for Better Health, 2019 release",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Work Schedules and Sleep Patterns of Railroad Employees",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Vegetation Monitoring in the Great Lakes Network, 2007-2024 - Data Package",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Animal Shelter Animals",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "PLACES: Census Tract Data (GIS Friendly Format), 2023 release",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "CDC PRAMStat Data for 2011",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "CDC Places Data by ZIP Code",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "500 Cities: Census Tract-level Data (GIS Friendly Format), 2019 release",
+        "url": null,
+        "source": "Data.gov"
+      },
+      {
+        "name": "Hotel Tax",
+        "url": null,
+        "source": "Data.gov"
+      }
+    ],
+    "physionet": [
+      {
+        "name": "MIMIC-III Demo",
+        "url": "https://physionet.org/content/mimiciii-demo/1.4/",
+        "description": "100 ICU patients (no credentials needed)"
+      },
+      {
+        "name": "PTB Diagnostic ECG Database",
+        "url": "https://physionet.org/content/ptbdb/1.0.0/",
+        "description": "ECG recordings"
+      },
+      {
+        "name": "MIT-BIH Arrhythmia Database",
+        "url": "https://physionet.org/content/mitdb/1.0.0/",
+        "description": "Cardiac arrhythmia data"
+      },
+      {
+        "name": "MIMIC-III Demo",
+        "downloaded": true
+      }
+    ]
+  }
+}
