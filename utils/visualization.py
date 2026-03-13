@@ -51,8 +51,8 @@ class HealthVisualization:
         
         # Plot 1: Glucose and HbA1c
         ax1 = axes[0, 0]
-        glucose = [d['agent_states'].get('metabolic', {}).get('glucose', 5.0) for d in timeline_data]
-        hba1c = [d['agent_states'].get('metabolic', {}).get('hba1c', 5.0) for d in timeline_data]
+        glucose = [d['agents'].get('metabolic', {}).get('state', {}).get('glucose', 5.0) for d in timeline_data]
+        hba1c = [d['agents'].get('metabolic', {}).get('state', {}).get('hba1c', 5.0) for d in timeline_data]
         
         ax1_twin = ax1.twinx()
         line1 = ax1.plot(years, glucose, 'b-', label='Glucose', linewidth=2)
@@ -73,8 +73,8 @@ class HealthVisualization:
         
         # Plot 2: Blood Pressure
         ax2 = axes[0, 1]
-        bp_sys = [d['agent_states'].get('cardiovascular', {}).get('systolic_bp', 120) for d in timeline_data]
-        bp_dia = [d['agent_states'].get('cardiovascular', {}).get('diastolic_bp', 80) for d in timeline_data]
+        bp_sys = [d['agents'].get('cardiovascular', {}).get('state', {}).get('systolic_bp', 120) for d in timeline_data]
+        bp_dia = [d['agents'].get('cardiovascular', {}).get('state', {}).get('diastolic_bp', 80) for d in timeline_data]
         
         ax2.plot(years, bp_sys, 'r-', label='Systolic', linewidth=2)
         ax2.plot(years, bp_dia, 'b-', label='Diastolic', linewidth=2)
@@ -89,7 +89,7 @@ class HealthVisualization:
         
         # Plot 3: Kidney Function
         ax3 = axes[1, 0]
-        egfr = [d['agent_states'].get('renal', {}).get('egfr', 100) for d in timeline_data]
+        egfr = [d['agents'].get('renal', {}).get('state', {}).get('egfr', 100) for d in timeline_data]
         
         ax3.plot(years, egfr, 'g-', linewidth=2)
         ax3.axhline(y=60, color='orange', linestyle='--', alpha=0.5, label='CKD Stage 3')
@@ -108,7 +108,7 @@ class HealthVisualization:
         
         # Get final stress levels
         if timeline_data:
-            final_state = timeline_data[-1]['agent_states']
+            final_state = timeline_data[-1]['agents']
             stress_levels = []
             for agent in ['cardiovascular', 'metabolic', 'renal', 'hepatic', 'immune', 'endocrine', 'neural']:
                 stress = final_state.get(agent, {}).get('stress_level', 0)
