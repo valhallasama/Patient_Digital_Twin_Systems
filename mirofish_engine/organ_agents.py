@@ -59,9 +59,18 @@ class CardiovascularAgent(BodySystemAgent):
         if ldl > 3.5:
             self.state['atherosclerosis_level'] += 0.002
         
+        # Bounds to prevent unrealistic values
+        self.state['systolic_bp'] = max(80, min(200, self.state['systolic_bp']))
+        self.state['diastolic_bp'] = max(50, min(120, self.state['diastolic_bp']))
+        self.state['heart_rate'] = max(40, min(150, self.state['heart_rate']))
+        self.state['vessel_elasticity'] = max(0.1, min(1.0, self.state['vessel_elasticity']))
+        self.state['atherosclerosis_level'] = max(0, min(10.0, self.state['atherosclerosis_level']))
+        
         # Send oxygen and nutrients to all systems
         decision['signals_to_send']['oxygen_delivery'] = self.state['cardiac_output']
         decision['signals_to_send']['blood_pressure'] = self.state['systolic_bp']
+        decision['signals_to_send']['bp'] = self.state['systolic_bp']
+        decision['signals_to_send']['vessel_health'] = self.state['vessel_elasticity']
         
         return decision
     
@@ -128,8 +137,15 @@ class MetabolicAgent(BodySystemAgent):
             if glucose_lowered < 0.1:
                 self.stress_level += 0.02
         
-        # Update HbA1c - FIXED: faster accumulation
+        # Update HbA1c (slow-moving average, faster accumulation) - FIXED
         self.state['hba1c'] = self.state['hba1c'] * 0.997 + self.state['glucose'] * 0.003
+        
+        # Bounds to prevent unrealistic values
+        self.state['glucose'] = max(3.0, min(25.0, self.state['glucose']))
+        self.state['hba1c'] = max(4.0, min(15.0, self.state['hba1c']))
+        self.state['insulin'] = max(0, min(200, self.state['insulin']))
+        self.state['insulin_sensitivity'] = max(0.1, min(1.0, self.state['insulin_sensitivity']))
+        self.state['beta_cell_function'] = max(0.1, min(1.0, self.state['beta_cell_function']))
         
         # Send glucose to all systems
         decision['signals_to_send']['glucose'] = self.state['glucose']
@@ -177,8 +193,19 @@ class RenalAgent(BodySystemAgent):
             self.state['damage_level'] += 0.002
             self.state['filtration_capacity'] *= 0.998
         
-        # Update eGFR based on filtration capacity
-        self.state['egfr'] = 100 * self.state['filtration_capacity']
+        # Progressive damage if under stress
+        if self.stress_level > 0.5:
+            self.state['damage_level'] += 0.001
+            self.state['filtration_capacity'] *= 0.9999
+        
+        # Bounds to prevent unrealistic values
+        self.state['egfr'] = max(5, min(120, self.state['egfr']))
+        self.state['creatinine'] = max(50, min(1000, self.state['creatinine']))
+        self.state['filtration_capacity'] = max(0.05, min(1.0, self.state['filtration_capacity']))
+        self.state['damage_level'] = max(0, min(10.0, self.state['damage_level']))
+        
+        # Send renal status
+        decision['signals_to_send']['kidney_function'] = self.state['egfr'] = 100 * self.state['filtration_capacity']
         self.state['creatinine'] = 80 / self.state['filtration_capacity']
         
         # Send signals
@@ -225,13 +252,21 @@ class HepaticAgent(BodySystemAgent):
         
         # Respond to inflammation
         inflammation = signals.get('inflammation', 0.0)
-        if inflammation > 0.5:
-            self.state['alt'] += 2
-            self.state['ast'] += 1
+        # Progressive fat accumulation if poor diet
+        if self.stress_level > 0.4:
+            self.state['fat_content'] += 0.001
         
-        # Produce cholesterol
+        # Bounds to prevent unrealistic values
+        self.state['alt'] = max(10, min(500, self.state['alt']))
+        self.state['ast'] = max(10, min(400, self.state['ast']))
+        self.state['ldl'] = max(1.0, min(10.0, self.state['ldl']))
+        self.state['hdl'] = max(0.5, min(3.0, self.state['hdl']))
+        self.state['fat_content'] = max(0, min(1.0, self.state['fat_content']))
+        self.state['detox_capacity'] = max(0.1, min(1.0, self.state['detox_capacity']))
+        
+        # Send hepatic status
         decision['signals_to_send']['ldl'] = self.state['ldl']
-        decision['signals_to_send']['hdl'] = self.state['hdl']
+        decision['signals_to_send']['liver_health'] = self.state['detox_capacity']
         
         if self.state['ldl'] > 4.0:
             decision['signals_to_send']['high_ldl_alert'] = True
