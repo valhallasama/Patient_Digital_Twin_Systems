@@ -149,6 +149,9 @@ def download_uci_dataset(name: str, url: str, output_dir: Path):
     try:
         print(f"\n📥 Downloading from UCI: {name}")
         
+        # Create output directory first
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
         response = requests.get(url, timeout=30)
         response.raise_for_status()
         
@@ -177,6 +180,9 @@ def download_openml_dataset(dataset_id: int, output_dir: Path):
     """Download OpenML dataset"""
     try:
         print(f"\n📥 Downloading from OpenML: Dataset {dataset_id}")
+        
+        # Create output directory first
+        output_dir.mkdir(parents=True, exist_ok=True)
         
         from sklearn.datasets import fetch_openml
         

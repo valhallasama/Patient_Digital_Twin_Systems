@@ -1,16 +1,30 @@
 {
-  "total_datasets": 99,
+  "total_datasets": 111,
   "sources": {
     "kaggle": 0,
-    "uci": 0,
-    "openml": 0,
+    "uci": 8,
+    "openml": 4,
     "data_gov": 95,
     "physionet": 4
   },
   "datasets": {
     "kaggle": [],
-    "uci": [],
-    "openml": [],
+    "uci": [
+      "hepatitis",
+      "thyroid",
+      "parkinsons",
+      "heart_disease_cleveland",
+      "heart_disease_hungarian",
+      "heart_disease_switzerland",
+      "breast_cancer",
+      "lung_cancer"
+    ],
+    "openml": [
+      37,
+      1464,
+      1480,
+      1590
+    ],
     "data_gov": [
       {
         "name": "U.S. Chronic Disease Indicators",
