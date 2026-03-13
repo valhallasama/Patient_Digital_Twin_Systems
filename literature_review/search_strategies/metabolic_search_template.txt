@@ -1,0 +1,74 @@
+# Metabolic System Literature Search Strategy
+
+## Search Date: [DATE]
+## Searcher: [NAME]
+## Database: PubMed
+
+---
+
+## Search 1: Beta Cell Function Decline
+
+**Query:**
+("beta cell function"[Title/Abstract] OR "pancreatic beta cell"[Title/Abstract])
+AND ("decline"[Title/Abstract] OR "deterioration"[Title/Abstract] OR "progression"[Title/Abstract])
+AND ("type 2 diabetes"[MeSH Terms] OR "prediabetes"[MeSH Terms])
+AND ("longitudinal"[Title/Abstract] OR "cohort"[Title/Abstract] OR "prospective"[Title/Abstract])
+
+**Filters:**
+- Publication date: 2000-2024
+- Article types: Clinical Trial, Meta-Analysis, Systematic Review, Observational Study
+- Language: English
+
+**Results:** [NUMBER]
+**Screened:** [NUMBER]
+**Selected:** [NUMBER]
+
+**Key Papers:**
+1. [Paper ID] - [Reason for selection]
+2. ...
+
+---
+
+## Search 2: Insulin Sensitivity
+
+**Query:**
+("insulin sensitivity"[Title/Abstract] OR "insulin resistance"[Title/Abstract] OR "HOMA-IR"[Title/Abstract])
+AND ("change"[Title/Abstract] OR "decline"[Title/Abstract])
+AND ("obesity"[MeSH Terms] OR "metabolic syndrome"[MeSH Terms])
+
+**Results:** [NUMBER]
+**Selected:** [NUMBER]
+
+---
+
+## Search 3: Glucose Metabolism
+
+**Query:**
+("glucose metabolism"[Title/Abstract] OR "glycemic control"[Title/Abstract])
+AND ("exercise"[MeSH Terms] OR "diet"[MeSH Terms])
+AND ("intervention"[Title/Abstract] OR "trial"[Title/Abstract])
+
+**Results:** [NUMBER]
+**Selected:** [NUMBER]
+
+---
+
+## Search 4: HbA1c Progression
+
+**Query:**
+("HbA1c"[Title/Abstract] OR "glycated hemoglobin"[Title/Abstract])
+AND ("progression"[Title/Abstract] OR "increase"[Title/Abstract])
+AND ("natural history"[Title/Abstract] OR "untreated"[Title/Abstract])
+
+**Results:** [NUMBER]
+**Selected:** [NUMBER]
+
+---
+
+## Total Papers Identified: [NUMBER]
+## Total Papers Selected: [NUMBER]
+
+## Next Steps:
+- [ ] Download PDFs
+- [ ] Import to Zotero
+- [ ] Begin parameter extraction
