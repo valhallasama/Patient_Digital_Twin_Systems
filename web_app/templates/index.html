@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Digital Twin Prediction Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f5f5;
+            display: flex;
+        }
+        
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #95a5a6;
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar li {
+            padding: 10px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        
+        .sidebar li:hover {
+            background: #34495e;
+        }
+        
+        .sidebar li.active {
+            background: #e74c3c;
+        }
+        
+        .sidebar li.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .main-content {
+            flex: 1;
+            padding: 30px;
+        }
+        
+        .header {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section h2 {
+            font-size: 18px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-size: 14px;
+            color: #34495e;
+            margin-bottom: 5px;
+        }
+        
+        .form-group input, .form-group select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .calculate-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        
+        .calculate-btn:hover {
+            background: #c0392b;
+        }
+        
+        .results-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .results-container.show {
+            display: block;
+        }
+        
+        .risk-card {
+            background: #fff;
+            border: 1px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .risk-card h3 {
+            font-size: 16px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .risk-percentage {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .risk-percentage.low {
+            color: #27ae60;
+        }
+        
+        .risk-percentage.medium {
+            color: #f39c12;
+        }
+        
+        .risk-percentage.high {
+            color: #e74c3c;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-fill.low {
+            background: #27ae60;
+        }
+        
+        .progress-fill.medium {
+            background: #f39c12;
+        }
+        
+        .progress-fill.high {
+            background: #e74c3c;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .loading.show {
+            display: block;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #e74c3c;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h3>Navigation</h3>
+        <ul>
+            <li class="active" onclick="showSection('prediction')">🏥 Risk Prediction</li>
+            <li class="disabled" onclick="alert('Coming soon! This will show your prediction history.')">📊 Past Predictions</li>
+            <li class="disabled" onclick="alert('Coming soon! This will show detailed organ-by-organ analytics.')">📈 Full-Body Analytics</li>
+        </ul>
+        
+        <h3 style="margin-top: 40px;">System Info</h3>
+        <ul>
+            <li style="cursor: default;">📁 102k Patients</li>
+            <li style="cursor: default;">🧬 7 Organ Agents</li>
+            <li style="cursor: default;">🎯 ML-Powered</li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="header">
+            <h1>🏥 Health Digital Twin Prediction Platform</h1>
+            <p>Enter patient data to predict disease risk and get personalized interventions</p>
+        </div>
+        
+        <div class="form-container">
+            <h2 style="margin-bottom: 20px;">Risk Prediction Calculator</h2>
+            
+            <!-- Input Mode Toggle -->
+            <div style="margin-bottom: 30px; display: flex; gap: 10px;">
+                <button type="button" class="mode-btn active" onclick="switchMode('form')" id="formModeBtn">
+                    📝 Form Input
+                </button>
+                <button type="button" class="mode-btn" onclick="switchMode('report')" id="reportModeBtn">
+                    📄 Upload/Paste Report
+                </button>
+            </div>
+            
+            <style>
+                .mode-btn {
+                    padding: 10px 20px;
+                    border: 2px solid #ddd;
+                    background: white;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    font-size: 14px;
+                    transition: all 0.2s;
+                }
+                .mode-btn:hover {
+                    background: #f8f9fa;
+                }
+                .mode-btn.active {
+                    background: #e74c3c;
+                    color: white;
+                    border-color: #e74c3c;
+                }
+                .report-input-section {
+                    display: none;
+                }
+                .report-input-section.show {
+                    display: block;
+                }
+                .form-input-section.hide {
+                    display: none;
+                }
+                #reportText {
+                    width: 100%;
+                    min-height: 300px;
+                    padding: 15px;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    font-family: monospace;
+                    font-size: 14px;
+                    resize: vertical;
+                }
+                .upload-area {
+                    border: 2px dashed #ddd;
+                    border-radius: 4px;
+                    padding: 30px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                .upload-area:hover {
+                    border-color: #e74c3c;
+                    background: #fff5f5;
+                }
+                .extraction-summary {
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 4px;
+                    margin-top: 20px;
+                    white-space: pre-line;
+                    font-size: 14px;
+                }
+            </style>
+            
+            <!-- Report Input Mode -->
+            <div class="report-input-section" id="reportInputSection">
+                <p style="color: #7f8c8d; margin-bottom: 20px;">Paste your medical report or upload a file. Our AI will extract the relevant data automatically.</p>
+                
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <p style="font-size: 48px; margin: 0;">📄</p>
+                    <p style="margin: 10px 0 0 0;">Click to upload PDF or text file</p>
+                    <p style="font-size: 12px; color: #7f8c8d; margin: 5px 0 0 0;">or paste text below</p>
+                    <input type="file" id="fileInput" accept=".txt,.pdf,.doc,.docx" style="display: none;" onchange="handleFileUpload(event)">
+                </div>
+                
+                <textarea id="reportText" placeholder="Paste medical report here...
+
+Example:
+Patient: John Doe
+Age: 45 years old
+Sex: Male
+Height: 175 cm
+Weight: 85 kg
+
+Lab Results:
+- HbA1c: 6.2%
+- Fasting Glucose: 115 mg/dL
+- Blood Pressure: 140/90 mmHg
+- LDL: 145 mg/dL
+- HDL: 42 mg/dL
+
+Lifestyle: Current smoker, sedentary
+Family history of diabetes"></textarea>
+                
+                <button type="button" class="calculate-btn" onclick="parseReport()">Parse Report & Calculate Risk</button>
+                
+                <div id="extractionSummary" class="extraction-summary" style="display: none;"></div>
+            </div>
+            
+            <!-- Form Input Mode -->
+            <div class="form-input-section" id="formInputSection">
+            <p style="color: #7f8c8d; margin-bottom: 30px;">Fill in as much data as available - missing values will be imputed using medical theory</p>
+            
+            <form id="predictionForm">
+                <div class="form-section">
+                    <h2>Patient Demographics</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Age (years) *</label>
+                            <input type="number" name="age" required min="1" max="120" value="45">
+                        </div>
+                        <div class="form-group">
+                            <label>Gender *</label>
+                            <select name="sex" required>
+                                <option value="M">Male</option>
+                                <option value="F" selected>Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Height (cm)</label>
+                            <input type="number" name="height" step="0.1" value="165">
+                        </div>
+                        <div class="form-group">
+                            <label>Weight (kg)</label>
+                            <input type="number" name="weight" step="0.1" value="80">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Lab Results</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>HbA1c (%)</label>
+                            <input type="number" name="hba1c" step="0.1" value="5.9">
+                        </div>
+                        <div class="form-group">
+                            <label>Fasting Glucose (mg/dL)</label>
+                            <input type="number" name="fasting_glucose" step="1" value="110">
+                        </div>
+                        <div class="form-group">
+                            <label>LDL Cholesterol (mg/dL)</label>
+                            <input type="number" name="ldl_cholesterol" step="1" value="140">
+                        </div>
+                        <div class="form-group">
+                            <label>HDL Cholesterol (mg/dL)</label>
+                            <input type="number" name="hdl_cholesterol" step="1" value="45">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Vital Signs</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Systolic BP (mmHg)</label>
+                            <input type="number" name="systolic_bp" step="1" value="135">
+                        </div>
+                        <div class="form-group">
+                            <label>Diastolic BP (mmHg)</label>
+                            <input type="number" name="diastolic_bp" step="1" value="85">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-section">
+                    <h2>Lifestyle</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Physical Activity</label>
+                            <select name="physical_activity">
+                                <option value="sedentary">Sedentary</option>
+                                <option value="light" selected>Light</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="vigorous">Vigorous</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Diet Quality</label>
+                            <select name="diet_quality">
+                                <option value="poor">Poor</option>
+                                <option value="fair" selected>Fair</option>
+                                <option value="good">Good</option>
+                                <option value="excellent">Excellent</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Smoking Status</label>
+                            <select name="smoking_status">
+                                <option value="never" selected>Never</option>
+                                <option value="former">Former</option>
+                                <option value="current">Current</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stress Level</label>
+                            <select name="stress_level">
+                                <option value="low">Low</option>
+                                <option value="moderate">Moderate</option>
+                                <option value="high" selected>High</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="calculate-btn">Calculate Risk</button>
+            </form>
+            </div>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Running 5-year simulation with 7 organ agents...</p>
+        </div>
+        
+        <div class="results-container" id="results">
+            <h2 style="margin-bottom: 20px;">Risk Assessment Results</h2>
+            
+            <div class="form-grid">
+                <div class="risk-card">
+                    <h3>10-Year Cardiovascular Risk</h3>
+                    <div class="risk-percentage medium" id="cvd-risk">62.6%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill medium" id="cvd-bar" style="width: 62.6%"></div>
+                    </div>
+                    <p style="color: #7f8c8d; font-size: 14px; margin-top: 10px;">MODERATE RISK</p>
+                </div>
+                
+                <div class="risk-card">
+                    <h3>Diabetes Risk (5-year)</h3>
+                    <div class="risk-percentage low" id="diabetes-risk">6.6%</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill low" id="diabetes-bar" style="width: 6.6%"></div>
+                    </div>
+                    <p style="color: #7f8c8d; font-size: 14px; margin-top: 10px;">LOW RISK</p>
+                </div>
+            </div>
+            
+            <div id="all-predictions" style="margin-top: 30px;">
+                <!-- Populated by JavaScript -->
+            </div>
+            
+            <div id="parameter-trajectory" style="margin-top: 30px; display: none;">
+                <h3 style="margin-bottom: 15px;">📈 Parameter Trajectory</h3>
+                <div class="risk-card">
+                    <canvas id="trajectoryChart" width="800" height="300"></canvas>
+                </div>
+            </div>
+            
+            <div id="interventions" style="margin-top: 30px;">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentMode = 'form';
+        let parsedPatientData = null;
+        
+        function showSection(section) {
+            if (section === 'prediction') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        function switchMode(mode) {
+            currentMode = mode;
+            
+            if (mode === 'form') {
+                document.getElementById('formModeBtn').classList.add('active');
+                document.getElementById('reportModeBtn').classList.remove('active');
+                document.getElementById('formInputSection').classList.remove('hide');
+                document.getElementById('reportInputSection').classList.remove('show');
+            } else {
+                document.getElementById('formModeBtn').classList.remove('active');
+                document.getElementById('reportModeBtn').classList.add('active');
+                document.getElementById('formInputSection').classList.add('hide');
+                document.getElementById('reportInputSection').classList.add('show');
+            }
+        }
+        
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('reportText').value = e.target.result;
+                };
+                reader.readAsText(file);
+            }
+        }
+        
+        async function parseReport() {
+            const reportText = document.getElementById('reportText').value;
+            
+            if (!reportText.trim()) {
+                alert('Please paste or upload a medical report first.');
+                return;
+            }
+            
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            
+            try {
+                // Parse the report
+                const parseResponse = await fetch('/api/parse_report', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ report_text: reportText })
+                });
+                
+                const parseResult = await parseResponse.json();
+                
+                if (!parseResult.success) {
+                    alert('Error parsing report: ' + parseResult.error);
+                    document.getElementById('loading').classList.remove('show');
+                    return;
+                }
+                
+                // Show extraction summary
+                document.getElementById('extractionSummary').innerHTML = parseResult.summary;
+                document.getElementById('extractionSummary').style.display = 'block';
+                
+                // Store parsed data
+                parsedPatientData = parseResult.patient_data;
+                
+                // Run prediction with parsed data
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(parsedPatientData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result);
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+            }
+        }
+        
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Show loading
+            document.getElementById('loading').classList.add('show');
+            document.getElementById('results').classList.remove('show');
+            
+            // Collect form data
+            const formData = new FormData(e.target);
+            const patientData = {
+                patient_id: 'WEB_' + Date.now(),
+                age: parseInt(formData.get('age')),
+                sex: formData.get('sex'),
+                height: parseFloat(formData.get('height')) || undefined,
+                weight: parseFloat(formData.get('weight')) || undefined,
+                hba1c: parseFloat(formData.get('hba1c')) || undefined,
+                fasting_glucose: parseFloat(formData.get('fasting_glucose')) || undefined,
+                ldl_cholesterol: parseFloat(formData.get('ldl_cholesterol')) || undefined,
+                hdl_cholesterol: parseFloat(formData.get('hdl_cholesterol')) || undefined,
+                blood_pressure: {
+                    systolic: parseFloat(formData.get('systolic_bp')) || undefined,
+                    diastolic: parseFloat(formData.get('diastolic_bp')) || undefined
+                },
+                lifestyle: {
+                    physical_activity: formData.get('physical_activity'),
+                    diet_quality: formData.get('diet_quality'),
+                    smoking_status: formData.get('smoking_status'),
+                    stress_level: formData.get('stress_level')
+                }
+            };
+            
+            try {
+                const response = await fetch('/api/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(patientData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    displayResults(result);
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            } finally {
+                document.getElementById('loading').classList.remove('show');
+            }
+        });
+        
+        function displayResults(result) {
+            const predictions = result.predictions;
+            
+            // Update main risk cards
+            if (predictions.length > 0) {
+                const topRisk = predictions[0];
+                const riskPct = (topRisk.probability * 100).toFixed(1);
+                const riskClass = riskPct > 50 ? 'high' : (riskPct > 20 ? 'medium' : 'low');
+                
+                document.getElementById('cvd-risk').textContent = riskPct + '%';
+                document.getElementById('cvd-risk').className = 'risk-percentage ' + riskClass;
+                document.getElementById('cvd-bar').style.width = riskPct + '%';
+                document.getElementById('cvd-bar').className = 'progress-fill ' + riskClass;
+            }
+            
+            // Display all predictions
+            const allPredDiv = document.getElementById('all-predictions');
+            allPredDiv.innerHTML = '<h3 style="margin-bottom: 15px;">All Disease Predictions</h3>';
+            
+            predictions.forEach((pred, idx) => {
+                const riskPct = (pred.probability * 100).toFixed(1);
+                const riskClass = riskPct > 50 ? 'high' : (riskPct > 20 ? 'medium' : 'low');
+                
+                const statusBadge = pred.status === 'CURRENT DIAGNOSIS' 
+                    ? '<span style="background: #e74c3c; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">CURRENT DIAGNOSIS</span>'
+                    : '<span style="background: #3498db; color: white; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold;">FUTURE RISK</span>';
+                
+                const timeInfo = pred.time_to_onset_days !== undefined && pred.time_to_onset_days > 0
+                    ? `<p style="color: #2c3e50; font-size: 15px; margin-top: 10px; font-weight: bold;">
+                         ⏰ Predicted onset: ${pred.time_to_onset_days} days (${pred.time_to_onset_years.toFixed(1)} years)
+                       </p>`
+                    : pred.time_to_onset_days === 0
+                    ? '<p style="color: #e74c3c; font-size: 15px; margin-top: 10px; font-weight: bold;">⚠️ Already present</p>'
+                    : '';
+                
+                const trajectoryInfo = pred.current_hba1c !== undefined
+                    ? `<div style="background: #f8f9fa; padding: 12px; border-radius: 4px; margin-top: 10px;">
+                         <p style="font-size: 13px; margin: 4px 0;"><strong>Current HbA1c:</strong> ${pred.current_hba1c}%</p>
+                         ${pred.projected_hba1c ? `<p style="font-size: 13px; margin: 4px 0;"><strong>Projected (1 year):</strong> ${pred.projected_hba1c}%</p>` : ''}
+                         ${pred.progression_rate ? `<p style="font-size: 13px; margin: 4px 0;"><strong>Progression rate:</strong> ${pred.progression_rate}</p>` : ''}
+                       </div>`
+                    : '';
+                
+                allPredDiv.innerHTML += `
+                    <div class="risk-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="margin: 0;">${idx + 1}. ${pred.disease}</h3>
+                            ${statusBadge}
+                        </div>
+                        <div class="risk-percentage ${riskClass}">${riskPct}%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill ${riskClass}" style="width: ${riskPct}%"></div>
+                        </div>
+                        ${timeInfo}
+                        ${trajectoryInfo}
+                        <p style="color: #7f8c8d; font-size: 13px; margin-top: 10px;">
+                            Confidence: ${(pred.confidence * 100).toFixed(0)}%
+                        </p>
+                        ${pred.risk_factors && pred.risk_factors.length > 0 ? '<p style="font-size: 13px; margin-top: 10px;"><strong>Risk factors:</strong> ' + pred.risk_factors.join(', ') + '</p>' : ''}
+                    </div>
+                `;
+            });
+            
+            // Display interventions
+            if (result.interventions && result.interventions.length > 0) {
+                const intDiv = document.getElementById('interventions');
+                intDiv.innerHTML = '<h3 style="margin-bottom: 15px;">💊 Recommended Interventions</h3>';
+                
+                result.interventions.forEach(int => {
+                    intDiv.innerHTML += `
+                        <div class="risk-card">
+                            <h3>For ${int.disease}</h3>
+                            <p style="margin: 10px 0;"><strong>Current Risk:</strong> ${(int.current_risk * 100).toFixed(1)}%</p>
+                            ${int.recommendations.map(rec => `
+                                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 4px;">
+                                    <p style="font-weight: bold;">• ${rec.intervention}</p>
+                                    <p style="font-size: 14px; margin-top: 5px;">
+                                        Risk Reduction: <strong>${(rec.risk_reduction * 100).toFixed(0)}%</strong> → 
+                                        New Risk: <strong>${(rec.new_probability * 100).toFixed(1)}%</strong>
+                                    </p>
+                                    <p style="font-size: 13px; color: #7f8c8d; margin-top: 5px;">
+                                        Evidence: ${rec.evidence} | Difficulty: ${rec.difficulty}
+                                    </p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                });
+            }
+            
+            document.getElementById('results').classList.add('show');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

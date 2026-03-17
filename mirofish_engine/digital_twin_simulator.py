@@ -48,8 +48,8 @@ class DigitalTwinSimulator:
         
         # Simulation state
         self.timeline = []
+        self.trajectory = []
         self.disease_predictions = []
-        self.current_time = 0
         self.start_date = datetime.now()
         
         # Environment (lifestyle, stress, etc.)
@@ -219,20 +219,33 @@ class DigitalTwinSimulator:
             self.disease_predictions.extend(year_predictions)
     
     def _record_state(self, step: int, timestep: str):
-        """Record current state of all agents"""
-        state_snapshot = {
-            'step': step,
-            'timestep': timestep,
-            'date': self._calculate_date(step, timestep),
-            'agents': {}
-        }
+        """Record current state for trajectory"""
+        # Calculate time
+        steps_per_year = {'day': 365, 'week': 52, 'month': 12}
+        year = step / steps_per_year[timestep]
+        month = (step % steps_per_year[timestep]) / steps_per_year[timestep] * 12
         
+        # Get agent states
+        agent_states = {}
         for agent_name, agent in self.agents.items():
-            # Get last recorded state from agent
-            if agent.state.history:
-                state_snapshot['agents'][agent_name] = agent.state.history[-1]
+            if hasattr(agent, 'state') and len(agent.state.history) > 0:
+                agent_states[agent_name] = agent.state.history[-1]
         
-        self.timeline.append(state_snapshot)
+        # Record to trajectory
+        self.trajectory.append({
+            'step': step,
+            'year': year,
+            'month': month,
+            'overall_health': self._calculate_health_score(),
+            'agents': agent_states
+        })
+        
+        # Also keep timeline for backward compatibility
+        snapshot = {
+            'step': step,
+            'agents': agent_states.copy()
+        }
+        self.timeline.append(snapshot)
     
     def _calculate_date(self, step: int, timestep: str) -> str:
         """Calculate calendar date for a given step"""
@@ -329,19 +342,7 @@ class DigitalTwinSimulator:
     
     def _format_trajectory(self) -> List[Dict]:
         """Format trajectory for output"""
-        formatted = []
-        
-        for i, snapshot in enumerate(self.timeline):
-            year = i / 4  # Quarterly snapshots
-            
-            formatted.append({
-                'year': year,
-                'date': snapshot['date'],
-                'health_score': self._calculate_health_score(),
-                'key_changes': self._identify_key_changes(snapshot)
-            })
-        
-        return formatted
+        return self.trajectory
     
     def _identify_key_changes(self, snapshot: Dict) -> List[str]:
         """Identify significant changes in this snapshot"""
