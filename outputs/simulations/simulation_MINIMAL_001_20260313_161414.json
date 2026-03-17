@@ -1,0 +1,244 @@
+{
+  "patient_id": "MINIMAL_001",
+  "simulation_date": "2026-03-13",
+  "simulation_years": 5.0,
+  "current_state": {
+    "overall_health_score": 8.949975111996018,
+    "organ_health": {
+      "metabolic": 9.149825783972126,
+      "cardiovascular": 7.0,
+      "hepatic": 10.0,
+      "renal": 9.0,
+      "immune": 9.0,
+      "neural": 9.5,
+      "endocrine": 9.0
+    }
+  },
+  "trajectory": [
+    {
+      "year": 0.0,
+      "date": "2026-03-13",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 0.25,
+      "date": "2026-06-11",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 0.5,
+      "date": "2026-09-09",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 0.75,
+      "date": "2026-12-08",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 1.0,
+      "date": "2027-03-08",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 1.25,
+      "date": "2027-06-06",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 1.5,
+      "date": "2027-09-04",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 1.75,
+      "date": "2027-12-03",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 2.0,
+      "date": "2028-03-02",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 2.25,
+      "date": "2028-05-31",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 2.5,
+      "date": "2028-08-29",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 2.75,
+      "date": "2028-11-27",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 3.0,
+      "date": "2029-02-25",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 3.25,
+      "date": "2029-05-26",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 3.5,
+      "date": "2029-08-24",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 3.75,
+      "date": "2029-11-22",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 4.0,
+      "date": "2030-02-20",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 4.25,
+      "date": "2030-05-21",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 4.5,
+      "date": "2030-08-19",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    },
+    {
+      "year": 4.75,
+      "date": "2030-11-17",
+      "health_score": 8.949975111996018,
+      "key_changes": []
+    }
+  ],
+  "disease_predictions": [
+    {
+      "disease": "Cardiovascular Disease",
+      "probability": 0.30000000000000004,
+      "time_to_onset_years": 10.0,
+      "confidence": 0.8,
+      "risk_factors": [
+        "Age 55"
+      ]
+    },
+    {
+      "disease": "Hypertension",
+      "probability": 0.125,
+      "time_to_onset_years": 5.0,
+      "confidence": 0.85,
+      "risk_factors": [
+        "BP 122/75"
+      ]
+    },
+    {
+      "disease": "Chronic Kidney Disease",
+      "probability": 0.1,
+      "time_to_onset_years": 5.0,
+      "confidence": 0.75
+    },
+    {
+      "disease": "Chronic Inflammation",
+      "probability": 0.1,
+      "time_to_onset_years": 3.0,
+      "confidence": 0.65
+    },
+    {
+      "disease": "Thyroid Disorder",
+      "probability": 0.1,
+      "time_to_onset_years": 3.0,
+      "confidence": 0.7
+    },
+    {
+      "disease": "Type 2 Diabetes",
+      "probability": 0.08501742160278747,
+      "time_to_onset_years": 10.0,
+      "confidence": 0.85,
+      "risk_factors": []
+    },
+    {
+      "disease": "Cognitive Decline",
+      "probability": 0.05,
+      "time_to_onset_years": 15,
+      "confidence": 0.6
+    },
+    {
+      "disease": "Fatty Liver Disease",
+      "probability": 0.0,
+      "time_to_onset_years": 5.0,
+      "confidence": 0.7
+    }
+  ],
+  "interventions": [
+    {
+      "disease": "Cardiovascular Disease",
+      "current_risk": 0.30000000000000004,
+      "recommendations": [
+        {
+          "type": "lifestyle",
+          "intervention": "Mediterranean diet",
+          "risk_reduction": 0.3,
+          "evidence": "High (PREDIMED)",
+          "difficulty": "moderate",
+          "new_probability": 0.21000000000000002,
+          "absolute_reduction": 0.09000000000000002
+        },
+        {
+          "type": "lifestyle",
+          "intervention": "Quit smoking",
+          "risk_reduction": 0.5,
+          "evidence": "High (Multiple RCTs)",
+          "difficulty": "high",
+          "new_probability": 0.15000000000000002,
+          "absolute_reduction": 0.15000000000000002
+        },
+        {
+          "type": "medical",
+          "intervention": "Statin therapy",
+          "risk_reduction": 0.25,
+          "evidence": "High (Multiple RCTs)",
+          "difficulty": "low",
+          "new_probability": 0.22500000000000003,
+          "absolute_reduction": 0.07500000000000001
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "total_steps": 20,
+    "agents": [
+      "metabolic",
+      "cardiovascular",
+      "hepatic",
+      "renal",
+      "immune",
+      "neural",
+      "endocrine"
+    ],
+    "data_completeness": 0.13333333333333333
+  }
+}

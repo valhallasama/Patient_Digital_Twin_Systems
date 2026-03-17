@@ -1,0 +1,15 @@
+COMPREHENSIVE MODEL TRAINING SUMMARY
+================================================================================
+
+METABOLIC AGENT:
+  Accuracy: 88.8%
+  AUC-ROC:  0.648
+  Training samples: 81,412
+  Test samples:     20,354
+
+CARDIOVASCULAR AGENT:
+  Accuracy: 85.0%
+  AUC-ROC:  0.940
+  Training samples: 237
+  Test samples:     60
+

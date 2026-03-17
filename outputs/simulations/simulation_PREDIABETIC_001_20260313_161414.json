@@ -1,0 +1,331 @@
+{
+  "patient_id": "PREDIABETIC_001",
+  "simulation_date": "2026-03-13",
+  "simulation_years": 5.0,
+  "current_state": {
+    "overall_health_score": 7.214285714285714,
+    "organ_health": {
+      "metabolic": 0.0,
+      "cardiovascular": 4.0,
+      "hepatic": 10.0,
+      "renal": 9.0,
+      "immune": 9.0,
+      "neural": 9.5,
+      "endocrine": 9.0
+    }
+  },
+  "trajectory": [
+    {
+      "year": 0.0,
+      "date": "2026-03-13",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 0.25,
+      "date": "2026-06-11",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 0.5,
+      "date": "2026-09-09",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 5.7%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 0.75,
+      "date": "2026-12-08",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 5.8%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 1.0,
+      "date": "2027-03-08",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 5.9%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 1.25,
+      "date": "2027-06-06",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.0%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 1.5,
+      "date": "2027-09-04",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.1%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 1.75,
+      "date": "2027-12-03",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.2%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 2.0,
+      "date": "2028-03-02",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.3%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 2.25,
+      "date": "2028-05-31",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.4%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 2.5,
+      "date": "2028-08-29",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.5%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 2.75,
+      "date": "2028-11-27",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.6%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 3.0,
+      "date": "2029-02-25",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.7%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 3.25,
+      "date": "2029-05-26",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 6.9%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 3.5,
+      "date": "2029-08-24",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.0%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 3.75,
+      "date": "2029-11-22",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.1%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 4.0,
+      "date": "2030-02-20",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.2%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 4.25,
+      "date": "2030-05-21",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.3%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 4.5,
+      "date": "2030-08-19",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.4%",
+        "BP 135/85"
+      ]
+    },
+    {
+      "year": 4.75,
+      "date": "2030-11-17",
+      "health_score": 7.214285714285714,
+      "key_changes": [
+        "HbA1c 7.5%",
+        "BP 135/85"
+      ]
+    }
+  ],
+  "disease_predictions": [
+    {
+      "disease": "Type 2 Diabetes",
+      "probability": 1.0,
+      "time_to_onset_years": 1.0,
+      "confidence": 0.85,
+      "risk_factors": [
+        "HbA1c 7.6% (prediabetes)",
+        "BMI 29.4 (overweight/obese)",
+        "Family history of diabetes",
+        "Insulin resistance detected"
+      ]
+    },
+    {
+      "disease": "Hypertension",
+      "probability": 0.6,
+      "time_to_onset_years": 2.0,
+      "confidence": 0.85,
+      "risk_factors": [
+        "BP 135/85"
+      ]
+    },
+    {
+      "disease": "Cardiovascular Disease",
+      "probability": 0.2,
+      "time_to_onset_years": 10.0,
+      "confidence": 0.8,
+      "risk_factors": [
+        "High LDL (140 mg/dL)"
+      ]
+    },
+    {
+      "disease": "Chronic Kidney Disease",
+      "probability": 0.1,
+      "time_to_onset_years": 5.0,
+      "confidence": 0.75
+    },
+    {
+      "disease": "Chronic Inflammation",
+      "probability": 0.1,
+      "time_to_onset_years": 3.0,
+      "confidence": 0.65
+    },
+    {
+      "disease": "Thyroid Disorder",
+      "probability": 0.1,
+      "time_to_onset_years": 3.0,
+      "confidence": 0.7
+    },
+    {
+      "disease": "Cognitive Decline",
+      "probability": 0.05,
+      "time_to_onset_years": 25,
+      "confidence": 0.6
+    },
+    {
+      "disease": "Fatty Liver Disease",
+      "probability": 0.0,
+      "time_to_onset_years": 5.0,
+      "confidence": 0.7
+    }
+  ],
+  "interventions": [
+    {
+      "disease": "Type 2 Diabetes",
+      "current_risk": 1.0,
+      "recommendations": [
+        {
+          "type": "lifestyle",
+          "intervention": "150 min/week moderate exercise",
+          "risk_reduction": 0.58,
+          "evidence": "High (DPP study)",
+          "difficulty": "moderate",
+          "new_probability": 0.42000000000000004,
+          "absolute_reduction": 0.58
+        },
+        {
+          "type": "lifestyle",
+          "intervention": "7% weight loss",
+          "risk_reduction": 0.58,
+          "evidence": "High (DPP study)",
+          "difficulty": "moderate",
+          "new_probability": 0.42000000000000004,
+          "absolute_reduction": 0.58
+        },
+        {
+          "type": "medical",
+          "intervention": "Metformin 850mg",
+          "risk_reduction": 0.31,
+          "evidence": "High (DPP study)",
+          "difficulty": "low",
+          "new_probability": 0.69,
+          "absolute_reduction": 0.31000000000000005
+        }
+      ]
+    },
+    {
+      "disease": "Hypertension",
+      "current_risk": 0.6,
+      "recommendations": [
+        {
+          "type": "lifestyle",
+          "intervention": "DASH diet",
+          "risk_reduction": 0.4,
+          "evidence": "High (DASH trial)",
+          "difficulty": "moderate",
+          "new_probability": 0.36,
+          "absolute_reduction": 0.24
+        },
+        {
+          "type": "lifestyle",
+          "intervention": "Reduce sodium to <2g/day",
+          "risk_reduction": 0.3,
+          "evidence": "High (Multiple studies)",
+          "difficulty": "moderate",
+          "new_probability": 0.42,
+          "absolute_reduction": 0.18
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "total_steps": 20,
+    "agents": [
+      "metabolic",
+      "cardiovascular",
+      "hepatic",
+      "renal",
+      "immune",
+      "neural",
+      "endocrine"
+    ],
+    "data_completeness": 0.6666666666666666
+  }
+}
