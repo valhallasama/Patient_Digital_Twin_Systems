@@ -19,7 +19,7 @@ class LLMService:
     
     def __init__(self):
         """Initialize LLM service"""
-        self.interpreter = LLMInterpreter(provider="openai", model="gpt-4")
+        self.interpreter = LLMInterpreter(llm_provider="openai", model="gpt-4")
     
     def analyze_patient(self, patient_data: Dict) -> Dict:
         """Analyze patient data with LLM"""
