@@ -331,18 +331,22 @@ class DataHarmonizer:
             if field not in data or data[field] is None:
                 errors.append(f"Missing required field: {field}")
         
-        # Value ranges
-        if data.get('age') and (data['age'] < 0 or data['age'] > 120):
-            errors.append(f"Invalid age: {data['age']}")
+        # Value ranges (check for None explicitly)
+        age = data.get('age')
+        if age is not None and (age < 0 or age > 120):
+            errors.append(f"Invalid age: {age}")
         
-        if data.get('bmi') and (data['bmi'] < 10 or data['bmi'] > 80):
-            errors.append(f"Invalid BMI: {data['bmi']}")
+        bmi = data.get('bmi')
+        if bmi is not None and (bmi < 10 or bmi > 80):
+            errors.append(f"Invalid BMI: {bmi}")
         
-        if data.get('systolic_bp') and (data['systolic_bp'] < 60 or data['systolic_bp'] > 250):
-            errors.append(f"Invalid systolic BP: {data['systolic_bp']}")
+        systolic_bp = data.get('systolic_bp')
+        if systolic_bp is not None and (systolic_bp < 60 or systolic_bp > 250):
+            errors.append(f"Invalid systolic BP: {systolic_bp}")
         
-        if data.get('hba1c') and (data['hba1c'] < 3 or data['hba1c'] > 20):
-            errors.append(f"Invalid HbA1c: {data['hba1c']}")
+        hba1c = data.get('hba1c')
+        if hba1c is not None and (hba1c < 3 or hba1c > 20):
+            errors.append(f"Invalid HbA1c: {hba1c}")
         
         return (len(errors) == 0, errors)
     

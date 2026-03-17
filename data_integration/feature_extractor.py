@@ -275,21 +275,21 @@ class FeatureExtractor:
         self.feature_names.append('is_smoker')
         
         # Alcohol (continuous)
-        alcohol = data.get('alcohol_per_week', 0.0)
+        alcohol = data.get('alcohol_per_week') or 0.0
         features.append(alcohol)
         self.feature_names.append('alcohol_per_week')
         
         # Heavy drinking flag
-        features.append(1.0 if alcohol > 14 else 0.0)
+        features.append(1.0 if (alcohol and alcohol > 14) else 0.0)
         self.feature_names.append('heavy_drinker')
         
         # Sleep (if available)
-        sleep = data.get('sleep_hours', 7.0)
+        sleep = data.get('sleep_hours') or 7.0
         features.append(sleep)
         self.feature_names.append('sleep_hours')
         
         # Poor sleep flag
-        features.append(1.0 if sleep < 6 or sleep > 9 else 0.0)
+        features.append(1.0 if (sleep and (sleep < 6 or sleep > 9)) else 0.0)
         self.feature_names.append('poor_sleep')
         
         return features
@@ -302,26 +302,30 @@ class FeatureExtractor:
         ms_score = 0
         
         # 1. Abdominal obesity
-        waist = data.get('waist_circumference', 0)
+        waist = data.get('waist_circumference') or 0
         sex = data.get('sex', 'M')
-        if (sex == 'M' and waist > 102) or (sex == 'F' and waist > 88):
+        if waist and ((sex == 'M' and waist > 102) or (sex == 'F' and waist > 88)):
             ms_score += 1
         
         # 2. High triglycerides
-        if data.get('triglycerides', 0) >= 150:
+        tg = data.get('triglycerides') or 0
+        if tg and tg >= 150:
             ms_score += 1
         
         # 3. Low HDL
-        hdl = data.get('hdl', 100)
-        if (sex == 'M' and hdl < 40) or (sex == 'F' and hdl < 50):
+        hdl = data.get('hdl') or 100
+        if hdl and ((sex == 'M' and hdl < 40) or (sex == 'F' and hdl < 50)):
             ms_score += 1
         
         # 4. High blood pressure
-        if data.get('systolic_bp', 0) >= 130 or data.get('diastolic_bp', 0) >= 85:
+        systolic = data.get('systolic_bp') or 0
+        diastolic = data.get('diastolic_bp') or 0
+        if (systolic and systolic >= 130) or (diastolic and diastolic >= 85):
             ms_score += 1
         
         # 5. High fasting glucose
-        if data.get('fasting_glucose', 0) >= 100:
+        glucose = data.get('fasting_glucose') or 0
+        if glucose and glucose >= 100:
             ms_score += 1
         
         features.append(float(ms_score))
@@ -333,13 +337,14 @@ class FeatureExtractor:
         
         # Cardiovascular risk score (simplified Framingham-like)
         cv_risk = 0.0
-        age = data.get('age', 50)
-        if age >= 65:
-            cv_risk += 3.0
-        elif age >= 55:
-            cv_risk += 2.0
-        elif age >= 45:
-            cv_risk += 1.0
+        age = data.get('age') or 50
+        if age:
+            if age >= 65:
+                cv_risk += 3.0
+            elif age >= 55:
+                cv_risk += 2.0
+            elif age >= 45:
+                cv_risk += 1.0
         
         if data.get('smoking', False):
             cv_risk += 2.0
@@ -347,10 +352,12 @@ class FeatureExtractor:
         if data.get('has_diabetes', False):
             cv_risk += 2.0
         
-        if data.get('systolic_bp', 0) >= 140:
+        systolic = data.get('systolic_bp') or 0
+        if systolic and systolic >= 140:
             cv_risk += 1.5
         
-        if data.get('ldl', 0) >= 160:
+        ldl = data.get('ldl') or 0
+        if ldl and ldl >= 160:
             cv_risk += 1.5
         
         features.append(cv_risk)

@@ -25,17 +25,27 @@ logger = logging.getLogger(__name__)
 class NHANESLoader:
     """Load and process NHANES survey data"""
     
-    def __init__(self, nhanes_path: str, cycle: str = '2017-2018'):
+    def __init__(self, data_path: str, cycle: str = '2017-2018'):
         """
         Initialize NHANES loader
         
         Args:
-            nhanes_path: Path to NHANES data directory
-            cycle: Survey cycle (e.g., '2017-2018', '2015-2016')
+            data_path: Path to NHANES data directory
+            cycle: NHANES cycle (e.g., '2017-2018')
         """
-        self.nhanes_path = Path(nhanes_path)
+        self.data_path = Path(data_path)
         self.cycle = cycle
-        self.cycle_path = self.nhanes_path / cycle
+        self.cycle_path = self.data_path / cycle
+        
+        # Map cycle years to file suffix
+        # NHANES uses letters: I=2015-2016, J=2017-2018, K=2019-2020, etc.
+        cycle_map = {
+            '2015-2016': 'I',
+            '2017-2018': 'J',
+            '2019-2020': 'K',
+            '2021-2022': 'L'
+        }
+        self.file_suffix = cycle_map.get(cycle, 'J')
         
         if not self.cycle_path.exists():
             logger.warning(f"NHANES path not found: {self.cycle_path}")
@@ -53,7 +63,13 @@ class NHANESLoader:
         - DMDEDUC2: Education level
         """
         try:
-            demo_file = self.cycle_path / 'DEMO.XPT'
+            # Try with cycle suffix first (e.g., DEMO_J.XPT for 2017-2018)
+            demo_file = self.cycle_path / f'DEMO_{self.file_suffix}.XPT'
+            
+            if not demo_file.exists():
+                # Try without suffix
+                demo_file = self.cycle_path / 'DEMO.XPT'
+            
             if demo_file.exists():
                 return pd.read_sas(demo_file)
             else:
@@ -86,7 +102,12 @@ class NHANESLoader:
         
         for name, file_prefix in lab_files.items():
             try:
-                file_path = self.cycle_path / f'{file_prefix}.XPT'
+                # Try with suffix first
+                file_path = self.cycle_path / f'{file_prefix}_{self.file_suffix}.XPT'
+                if not file_path.exists():
+                    # Try without suffix
+                    file_path = self.cycle_path / f'{file_prefix}.XPT'
+                
                 if file_path.exists():
                     lab_data[name] = pd.read_sas(file_path)
             except Exception as e:
@@ -112,7 +133,10 @@ class NHANESLoader:
         - BMXWAIST: Waist circumference
         """
         try:
-            bmx_file = self.cycle_path / 'BMX.XPT'
+            bmx_file = self.cycle_path / f'BMX_{self.file_suffix}.XPT'
+            if not bmx_file.exists():
+                bmx_file = self.cycle_path / 'BMX.XPT'
+            
             if bmx_file.exists():
                 return pd.read_sas(bmx_file)
             else:
@@ -131,7 +155,10 @@ class NHANESLoader:
         - BPXDI1, BPXDI2, BPXDI3: Diastolic BP (3 readings)
         """
         try:
-            bpx_file = self.cycle_path / 'BPX.XPT'
+            bpx_file = self.cycle_path / f'BPX_{self.file_suffix}.XPT'
+            if not bpx_file.exists():
+                bpx_file = self.cycle_path / 'BPX.XPT'
+            
             if bpx_file.exists():
                 return pd.read_sas(bpx_file)
             else:
@@ -154,7 +181,10 @@ class NHANESLoader:
         - MCQ: Medical conditions
         """
         try:
-            q_file = self.cycle_path / f'{questionnaire}.XPT'
+            q_file = self.cycle_path / f'{questionnaire}_{self.file_suffix}.XPT'
+            if not q_file.exists():
+                q_file = self.cycle_path / f'{questionnaire}.XPT'
+            
             if q_file.exists():
                 return pd.read_sas(q_file)
             else:
