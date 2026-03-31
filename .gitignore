@@ -30,6 +30,13 @@ ENV/
 data/raw/*
 data/processed/*
 data/synthetic/*
+data/nhanes/raw_csv/*
+data/21743372/*
+21743372/*
+*.zip
+*.csv
+*.RData
+*.xlsx
 !data/.gitkeep
 
 # Logs
