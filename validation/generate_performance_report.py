@@ -129,17 +129,19 @@ class PerformanceReporter:
             for idx in tqdm(test_indices, desc="Evaluating"):
                 sample = dataset[idx]
                 
-                # Prepare input
+                # Prepare input - convert organ_features dict to tensors
                 temporal_features = {}
-                for organ in ['metabolic', 'cardiovascular', 'kidney', 'liver', 'immune', 'neural', 'lifestyle']:
-                    feat = sample[organ].unsqueeze(0).to(self.device)  # [1, seq_len, features]
+                for organ, features in sample['organ_features'].items():
+                    feat = torch.FloatTensor(features).unsqueeze(0).to(self.device)  # [1, seq_len, features]
                     temporal_features[organ] = feat
                 
-                labels = sample['disease_labels'].to(self.device)
+                time_deltas = torch.FloatTensor(sample['time_deltas']).unsqueeze(0).to(self.device)  # [1, seq_len]
+                demographics = torch.FloatTensor(sample['demographics']).unsqueeze(0).to(self.device)  # [1, demo_dim]
+                labels = torch.FloatTensor(sample['disease_labels']).to(self.device)
                 
                 # Forward pass
-                outputs = self.model(temporal_features, self.edge_index)
-                predictions = torch.sigmoid(outputs['disease_risk'])
+                outputs, _ = self.model(temporal_features, time_deltas, demographics)
+                predictions = outputs['risk_scores']  # Already sigmoid'd in prediction head
                 
                 all_predictions.append(predictions.cpu().numpy()[0])
                 all_labels.append(labels.cpu().numpy())

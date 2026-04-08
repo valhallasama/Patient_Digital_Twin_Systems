@@ -91,12 +91,12 @@ class OrganGraphNetwork(nn.Module):
         # GAT layers for message passing
         self.gat_layers = nn.ModuleList([
             GATConv(
-                in_channels=hidden_dim,
+                in_channels=hidden_dim if i == 0 else hidden_dim,
                 out_channels=hidden_dim // num_attention_heads,
                 heads=num_attention_heads,
                 dropout=dropout,
                 add_self_loops=True,
-                concat=True if i < num_layers - 1 else False
+                concat=True
             )
             for i in range(num_layers)
         ])
@@ -110,7 +110,7 @@ class OrganGraphNetwork(nn.Module):
         # Dropout
         self.dropout = nn.Dropout(dropout)
         
-        # Layer normalization
+        # Layer normalization (all layers output hidden_dim due to concat=True)
         self.layer_norms = nn.ModuleList([
             nn.LayerNorm(hidden_dim) for _ in range(num_layers)
         ])
@@ -140,7 +140,8 @@ class OrganGraphNetwork(nn.Module):
         self,
         node_features: Dict[str, torch.Tensor],
         edge_index: torch.Tensor,
-        batch: Optional[torch.Tensor] = None
+        batch: Optional[torch.Tensor] = None,
+        return_hidden: bool = True
     ) -> Dict[str, torch.Tensor]:
         """
         Forward pass through organ graph
@@ -149,6 +150,7 @@ class OrganGraphNetwork(nn.Module):
             node_features: Dictionary mapping organ name to feature tensor
             edge_index: Edge connectivity [2, num_edges]
             batch: Batch assignment for each node (for batched graphs)
+            return_hidden: If True, return hidden_dim embeddings; if False, project back to original dims
         
         Returns:
             Updated node features per organ
@@ -175,8 +177,8 @@ class OrganGraphNetwork(nn.Module):
             # GAT layer
             x_new = gat(x, edge_index)
             
-            # Residual connection
-            if i > 0:
+            # Residual connection (only if dimensions match)
+            if i > 0 and x_new.shape == x.shape:
                 x_new = x_new + x
             
             # Layer normalization
@@ -190,7 +192,7 @@ class OrganGraphNetwork(nn.Module):
             
             x = x_new
         
-        # Project back to original feature dimensions
+        # Split back into organs
         outputs = {}
         start_idx = 0
         
@@ -199,7 +201,12 @@ class OrganGraphNetwork(nn.Module):
             end_idx = start_idx + num_nodes
             
             organ_features = x[start_idx:end_idx]
-            outputs[organ] = self.output_projections[organ](organ_features)
+            
+            # Return hidden embeddings (for transformer) or project back (for reconstruction)
+            if return_hidden:
+                outputs[organ] = organ_features  # [batch, hidden_dim]
+            else:
+                outputs[organ] = self.output_projections[organ](organ_features)
             
             start_idx = end_idx
         

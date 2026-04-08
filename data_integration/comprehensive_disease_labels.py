@@ -235,19 +235,28 @@ class ComprehensiveDiseaseLabeler:
                     sex = patient_data.get('sex', 'M')
                     threshold = threshold.get(sex, threshold.get('M'))
                 
-                # Evaluate criterion
-                if operator == '>=':
-                    matches.append(value >= threshold)
-                elif operator == '>':
-                    matches.append(value > threshold)
-                elif operator == '<=':
-                    matches.append(value <= threshold)
-                elif operator == '<':
-                    matches.append(value < threshold)
-                elif operator == '==':
-                    matches.append(value == threshold)
-                elif operator == 'between':
-                    matches.append(threshold[0] <= value <= threshold[1])
+                # Skip if threshold is None after lookup
+                if threshold is None:
+                    matches.append(False)
+                    continue
+                
+                # Evaluate criterion (value already checked for None above)
+                try:
+                    if operator == '>=':
+                        matches.append(value >= threshold)
+                    elif operator == '>':
+                        matches.append(value > threshold)
+                    elif operator == '<=':
+                        matches.append(value <= threshold)
+                    elif operator == '<':
+                        matches.append(value < threshold)
+                    elif operator == '==':
+                        matches.append(value == threshold)
+                    elif operator == 'between':
+                        matches.append(threshold[0] <= value <= threshold[1])
+                except (TypeError, ValueError):
+                    # Handle any comparison errors
+                    matches.append(False)
         
         # Apply logic
         if logic == 'any':

@@ -85,6 +85,8 @@ class FeatureExtractor:
         
         # BMI
         bmi = data.get('bmi', 25.0)
+        if bmi is None:
+            bmi = 25.0
         features.append(bmi)
         self.feature_names.append('bmi')
         
@@ -121,11 +123,15 @@ class FeatureExtractor:
         
         # Glucose
         glucose = data.get('fasting_glucose', 100.0)
+        if glucose is None:
+            glucose = 100.0
         features.append(glucose)
         self.feature_names.append('fasting_glucose')
         
         # HbA1c
         hba1c = data.get('hba1c', 5.5)
+        if hba1c is None:
+            hba1c = 5.5
         features.append(hba1c)
         self.feature_names.append('hba1c')
         
@@ -152,21 +158,21 @@ class FeatureExtractor:
         
         # Blood pressure
         systolic = data.get('systolic_bp', 120.0)
+        if systolic is None:
+            systolic = 120.0
         diastolic = data.get('diastolic_bp', 80.0)
-        
+        if diastolic is None:
+            diastolic = 80.0
         features.append(systolic)
-        self.feature_names.append('systolic_bp')
-        
         features.append(diastolic)
-        self.feature_names.append('diastolic_bp')
+        self.feature_names.extend(['systolic_bp', 'diastolic_bp'])
         
-        # Pulse pressure (systolic - diastolic)
+        # Pulse pressure
         features.append(systolic - diastolic)
         self.feature_names.append('pulse_pressure')
         
         # Mean arterial pressure
-        map_value = diastolic + (systolic - diastolic) / 3.0
-        features.append(map_value)
+        features.append(diastolic + (systolic - diastolic) / 3)
         self.feature_names.append('mean_arterial_pressure')
         
         # Hypertension status
@@ -175,15 +181,19 @@ class FeatureExtractor:
         
         # Lipids
         ldl = data.get('ldl', 100.0)
+        if ldl is None:
+            ldl = 100.0
         hdl = data.get('hdl', 50.0)
-        tg = data.get('triglycerides', 150.0)
-        
+        if hdl is None:
+            hdl = 50.0
         features.append(ldl)
-        self.feature_names.append('ldl')
-        
         features.append(hdl)
-        self.feature_names.append('hdl')
+        self.feature_names.extend(['ldl', 'hdl'])
         
+        # Triglycerides
+        tg = data.get('triglycerides', 150.0)
+        if tg is None:
+            tg = 150.0
         features.append(tg)
         self.feature_names.append('triglycerides')
         
@@ -193,6 +203,8 @@ class FeatureExtractor:
         
         # Total cholesterol (if available, else estimate)
         total_chol = data.get('total_cholesterol', ldl + hdl + tg / 5.0)
+        if total_chol is None:
+            total_chol = ldl + hdl + tg / 5.0
         features.append(total_chol)
         self.feature_names.append('total_cholesterol')
         
@@ -204,13 +216,14 @@ class FeatureExtractor:
         
         # Liver enzymes
         alt = data.get('alt', 25.0)
+        if alt is None:
+            alt = 25.0
         ast = data.get('ast', 25.0)
-        
+        if ast is None:
+            ast = 25.0
         features.append(alt)
-        self.feature_names.append('alt')
-        
         features.append(ast)
-        self.feature_names.append('ast')
+        self.feature_names.extend(['alt', 'ast'])
         
         # AST/ALT ratio (De Ritis ratio)
         features.append(ast / alt if alt > 0 else 1.0)
@@ -228,11 +241,15 @@ class FeatureExtractor:
         
         # Creatinine
         creatinine = data.get('creatinine', 1.0)
+        if creatinine is None:
+            creatinine = 1.0
         features.append(creatinine)
         self.feature_names.append('creatinine')
         
         # eGFR
         egfr = data.get('egfr', 90.0)
+        if egfr is None:
+            egfr = 90.0
         features.append(egfr)
         self.feature_names.append('egfr')
         
@@ -251,6 +268,8 @@ class FeatureExtractor:
         
         # CRP
         crp = data.get('crp', 1.0)
+        if crp is None:
+            crp = 1.0
         features.append(crp)
         self.feature_names.append('crp')
         
@@ -388,44 +407,221 @@ class FeatureExtractor:
     def extract_graph_features(self, patient_data: Dict) -> Dict[str, np.ndarray]:
         """
         Extract features organized by organ system (for graph neural network)
+        Uses medically-informed imputation for missing values
         
         Returns:
             Dictionary mapping organ system to feature vector
         """
         graph_features = {}
         
-        # Metabolic node
+        # Get age and sex for stratified imputation
+        age = patient_data.get('age', 45)
+        sex = patient_data.get('sex', 'M')
+        
+        # Correlation-based imputation functions with randomization
+        def impute_glucose():
+            """Impute glucose from HbA1c if available, with realistic variation"""
+            hba1c = patient_data.get('hba1c')
+            if hba1c is not None and hba1c > 0:
+                # ADAG formula: glucose = 28.7 × HbA1c - 46.7
+                base = 28.7 * hba1c - 46.7
+                # Add ±5% random variation to simulate biological variability
+                noise = np.random.uniform(-0.05, 0.05) * base
+                return max(70.0, base + noise)
+            # Use age-stratified default with ±10% variation
+            base = get_glucose_default()
+            return base + np.random.uniform(-0.1, 0.1) * base
+        
+        def impute_hba1c():
+            """Impute HbA1c from glucose if available, with realistic variation"""
+            glucose = patient_data.get('fasting_glucose')
+            if glucose is not None and glucose > 0:
+                # Reverse ADAG: HbA1c = (glucose + 46.7) / 28.7
+                base = (glucose + 46.7) / 28.7
+                # Add ±3% random variation
+                noise = np.random.uniform(-0.03, 0.03) * base
+                return max(4.0, base + noise)
+            # Use age-stratified default with ±5% variation
+            base = get_hba1c_default()
+            return base + np.random.uniform(-0.05, 0.05) * base
+        
+        def impute_waist():
+            """Impute waist from BMI if available, with realistic variation"""
+            bmi = patient_data.get('bmi')
+            if bmi is not None and bmi > 0:
+                # Empirical relationship
+                base = 0.9 * bmi + 60 + (5 if sex == 'M' else 0)
+                # Add ±5 cm random variation
+                noise = np.random.uniform(-5, 5)
+                return max(60.0, base + noise)
+            # Use sex-specific default with ±8 cm variation
+            base = 90.0 if sex == 'M' else 85.0
+            return base + np.random.uniform(-8, 8)
+        
+        def impute_egfr():
+            """Calculate eGFR from creatinine using CKD-EPI equation with variation"""
+            creat = patient_data.get('creatinine')
+            if creat is not None and creat > 0:
+                # Simplified CKD-EPI equation
+                kappa = 0.7 if sex == 'F' else 0.9
+                alpha = -0.329 if sex == 'F' else -0.411
+                min_val = min(creat / kappa, 1.0)
+                max_val = max(creat / kappa, 1.0)
+                
+                egfr = 141 * (min_val ** alpha) * (max_val ** -1.209) * (0.993 ** age)
+                if sex == 'F':
+                    egfr *= 1.018
+                # Add ±3% variation for measurement error
+                noise = np.random.uniform(-0.03, 0.03) * egfr
+                return max(15.0, min(120.0, egfr + noise))
+            # Use age-stratified default with ±10% variation
+            base = get_egfr_default()
+            return base + np.random.uniform(-0.1, 0.1) * base
+        
+        def impute_creatinine():
+            """Estimate creatinine from eGFR if available with variation"""
+            egfr = patient_data.get('egfr')
+            if egfr is not None and egfr > 0:
+                # Rough inverse estimation
+                if sex == 'M':
+                    base = max(0.6, 1.5 - (egfr - 60) / 50)
+                else:
+                    base = max(0.5, 1.2 - (egfr - 60) / 50)
+                # Add ±5% variation
+                noise = np.random.uniform(-0.05, 0.05) * base
+                return max(0.4, base + noise)
+            # Use sex-specific default with ±10% variation
+            base = get_creatinine_default()
+            return base + np.random.uniform(-0.1, 0.1) * base
+        
+        def impute_systolic():
+            """Estimate systolic BP from age and BMI with variation"""
+            bmi = patient_data.get('bmi')
+            base_systolic, _ = get_bp_defaults()
+            if bmi is not None and bmi > 0:
+                # Add ~1 mmHg per BMI unit above 25
+                adjustment = max(0, (bmi - 25) * 1.2)
+                base = base_systolic + adjustment
+                # Add ±5 mmHg random variation
+                noise = np.random.uniform(-5, 5)
+                return min(180.0, max(90.0, base + noise))
+            # Use age-stratified default with ±8 mmHg variation
+            return base_systolic + np.random.uniform(-8, 8)
+        
+        # Helper function with correlation-based imputation
+        def safe_get(key, default):
+            val = patient_data.get(key, default)
+            if val is None:
+                return default
+            return val
+        
+        # Age-sex stratified defaults based on NHANES population statistics
+        def get_glucose_default():
+            if age >= 65: return 105.0
+            elif age >= 45: return 100.0
+            else: return 95.0
+        
+        def get_hba1c_default():
+            if age >= 65: return 5.7
+            elif age >= 45: return 5.6
+            else: return 5.4
+        
+        def get_bmi_default():
+            if sex == 'M':
+                return 28.0 if age >= 45 else 26.5
+            else:
+                return 27.5 if age >= 45 else 26.0
+        
+        def get_bp_defaults():
+            if age >= 65:
+                return (130.0, 80.0)
+            elif age >= 45:
+                return (125.0, 80.0)
+            else:
+                return (120.0, 78.0)
+        
+        def get_ldl_default():
+            if age >= 65: return 115.0
+            elif age >= 45: return 110.0
+            else: return 100.0
+        
+        def get_hdl_default():
+            return 45.0 if sex == 'M' else 55.0
+        
+        def get_creatinine_default():
+            return 1.1 if sex == 'M' else 0.9
+        
+        def get_egfr_default():
+            if age >= 70: return 75.0
+            elif age >= 60: return 85.0
+            elif age >= 40: return 95.0
+            else: return 105.0
+        
+        # Metabolic node - use correlation-based imputation
+        systolic_default, diastolic_default = get_bp_defaults()
+        
+        # Helper to check if value is valid (not None and not NaN)
+        def is_valid(val):
+            if val is None:
+                return False
+            try:
+                return not np.isnan(val)
+            except (TypeError, ValueError):
+                return True
+        
+        glucose_val = patient_data.get('fasting_glucose')
+        hba1c_val = patient_data.get('hba1c')
+        bmi_val = patient_data.get('bmi')
+        waist_val = patient_data.get('waist_circumference')
+        
         graph_features['metabolic'] = np.array([
-            patient_data.get('fasting_glucose', 100.0),
-            patient_data.get('hba1c', 5.5),
-            patient_data.get('bmi', 25.0),
-            patient_data.get('waist_circumference', 90.0) or 90.0
+            glucose_val if is_valid(glucose_val) else impute_glucose(),
+            hba1c_val if is_valid(hba1c_val) else impute_hba1c(),
+            bmi_val if is_valid(bmi_val) else get_bmi_default(),
+            waist_val if is_valid(waist_val) else impute_waist()
         ], dtype=np.float32)
         
-        # Cardiovascular node
+        # Cardiovascular node - use BMI-adjusted BP imputation
+        systolic_val = patient_data.get('systolic_bp')
+        diastolic_val = patient_data.get('diastolic_bp')
+        ldl_val = patient_data.get('ldl')
+        hdl_val = patient_data.get('hdl')
+        tg_val = patient_data.get('triglycerides')
+        
         graph_features['cardiovascular'] = np.array([
-            patient_data.get('systolic_bp', 120.0),
-            patient_data.get('diastolic_bp', 80.0),
-            patient_data.get('ldl', 100.0),
-            patient_data.get('hdl', 50.0),
-            patient_data.get('triglycerides', 150.0)
+            systolic_val if is_valid(systolic_val) else impute_systolic(),
+            diastolic_val if is_valid(diastolic_val) else diastolic_default,
+            ldl_val if is_valid(ldl_val) else get_ldl_default(),
+            hdl_val if is_valid(hdl_val) else get_hdl_default(),
+            tg_val if is_valid(tg_val) else (140.0 if age < 50 else 155.0)
         ], dtype=np.float32)
         
-        # Liver node
+        # Liver node - age-adjusted defaults
+        alt_val = patient_data.get('alt')
+        ast_val = patient_data.get('ast')
+        
         graph_features['liver'] = np.array([
-            patient_data.get('alt', 25.0),
-            patient_data.get('ast', 25.0)
+            alt_val if is_valid(alt_val) else (22.0 if sex == 'F' else 28.0),
+            ast_val if is_valid(ast_val) else (20.0 if sex == 'F' else 25.0)
         ], dtype=np.float32)
         
-        # Kidney node
+        # Kidney node - use CKD-EPI calculation for eGFR
+        creat_val = patient_data.get('creatinine')
+        egfr_val = patient_data.get('egfr')
+        
         graph_features['kidney'] = np.array([
-            patient_data.get('creatinine', 1.0),
-            patient_data.get('egfr', 90.0)
+            creat_val if is_valid(creat_val) else impute_creatinine(),
+            egfr_val if is_valid(egfr_val) else impute_egfr()
         ], dtype=np.float32)
         
-        # Inflammation node
-        graph_features['inflammation'] = np.array([
-            patient_data.get('crp', 1.0)
+        # Immune node (renamed from inflammation)
+        graph_features['immune'] = np.array([
+            safe_get('crp', 1.0)
+        ], dtype=np.float32)
+        
+        # Neural node (placeholder)
+        graph_features['neural'] = np.array([
+            safe_get('stress_level', 0.5)
         ], dtype=np.float32)
         
         # Lifestyle node
@@ -433,8 +629,8 @@ class FeatureExtractor:
         graph_features['lifestyle'] = np.array([
             activity_map.get(patient_data.get('physical_activity', 'sedentary'), 0.0),
             1.0 if patient_data.get('smoking', False) else 0.0,
-            patient_data.get('alcohol_per_week', 0.0),
-            patient_data.get('sleep_hours', 7.0)
+            safe_get('alcohol_per_week', 0.0),
+            safe_get('sleep_hours', 7.0)
         ], dtype=np.float32)
         
         return graph_features

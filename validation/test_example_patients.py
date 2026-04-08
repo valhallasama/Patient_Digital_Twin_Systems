@@ -123,11 +123,17 @@ class PatientPredictor:
             for organ, features in organ_features.items():
                 temporal_features[organ] = features.unsqueeze(1)  # [batch, seq_len=1, features]
             
+            # Time deltas for single timepoint
+            time_deltas = torch.zeros(1, 1).to(self.device)  # [batch=1, seq_len=1]
+            
+            # Demographics
+            demographics = organ_features['demographics'].to(self.device) if 'demographics' in organ_features else None
+            
             # Forward pass
-            outputs = self.model(temporal_features, self.edge_index)
+            outputs, _ = self.model(temporal_features, time_deltas, demographics)
             
             # Get disease predictions
-            disease_risks = torch.sigmoid(outputs['disease_risk']).cpu().numpy()[0]
+            disease_risks = outputs['risk_scores'].cpu().numpy()[0]  # Already sigmoid'd
         
         # Display top 10 disease risks
         print(f"\nTop 10 Disease Risks:")
@@ -163,7 +169,8 @@ class PatientPredictor:
             'liver': torch.tensor([[22.0, 18.0]], dtype=torch.float32),
             'immune': torch.tensor([[6.5]], dtype=torch.float32),
             'neural': torch.tensor([[0.95]], dtype=torch.float32),
-            'lifestyle': torch.tensor([[0.2, 0.7, 0.7, 7.5]], dtype=torch.float32)
+            'lifestyle': torch.tensor([[0.2, 0.7, 0.7, 7.5]], dtype=torch.float32),
+            'demographics': torch.tensor([[0.28, 1.0, 0.44, 0.575, 0.625, 0.475, 0.347, 0.425, 0.0, 0.35]], dtype=torch.float32)  # age/100, sex, bmi/50, etc.
         }
         
         # Patient 2: Pre-Diabetic with Metabolic Syndrome
@@ -174,7 +181,8 @@ class PatientPredictor:
             'liver': torch.tensor([[45.0, 38.0]], dtype=torch.float32),
             'immune': torch.tensor([[8.5]], dtype=torch.float32),
             'neural': torch.tensor([[0.85]], dtype=torch.float32),
-            'lifestyle': torch.tensor([[0.4, 0.2, 0.3, 6.0]], dtype=torch.float32)
+            'lifestyle': torch.tensor([[0.4, 0.2, 0.3, 6.0]], dtype=torch.float32),
+            'demographics': torch.tensor([[0.52, 0.0, 0.64, 0.675, 0.733, 0.625, 0.413, 0.600, 0.0, 0.10]], dtype=torch.float32)
         }
         
         # Patient 3: Heavy Drinker with Liver Issues
@@ -185,7 +193,8 @@ class PatientPredictor:
             'liver': torch.tensor([[68.0, 55.0]], dtype=torch.float32),
             'immune': torch.tensor([[9.2]], dtype=torch.float32),
             'neural': torch.tensor([[0.78]], dtype=torch.float32),
-            'lifestyle': torch.tensor([[0.9, 0.3, 0.4, 6.5]], dtype=torch.float32)
+            'lifestyle': torch.tensor([[0.9, 0.3, 0.4, 6.5]], dtype=torch.float32),
+            'demographics': torch.tensor([[0.45, 1.0, 0.52, 0.640, 0.683, 0.525, 0.373, 0.488, 1.0, 0.15]], dtype=torch.float32)
         }
         
         # Patient 4: Elderly with Hypertension and Cognitive Decline
@@ -196,7 +205,8 @@ class PatientPredictor:
             'liver': torch.tensor([[28.0, 24.0]], dtype=torch.float32),
             'immune': torch.tensor([[7.8]], dtype=torch.float32),
             'neural': torch.tensor([[0.65]], dtype=torch.float32),
-            'lifestyle': torch.tensor([[0.1, 0.3, 0.5, 7.0]], dtype=torch.float32)
+            'lifestyle': torch.tensor([[0.1, 0.3, 0.5, 7.0]], dtype=torch.float32),
+            'demographics': torch.tensor([[0.72, 0.0, 0.48, 0.775, 0.767, 0.550, 0.387, 0.525, 0.0, 0.15]], dtype=torch.float32)
         }
         
         # Patient 5: Athletic with Excellent Health
@@ -207,7 +217,8 @@ class PatientPredictor:
             'liver': torch.tensor([[18.0, 16.0]], dtype=torch.float32),
             'immune': torch.tensor([[6.0]], dtype=torch.float32),
             'neural': torch.tensor([[0.98]], dtype=torch.float32),
-            'lifestyle': torch.tensor([[0.1, 0.9, 0.8, 8.0]], dtype=torch.float32)
+            'lifestyle': torch.tensor([[0.1, 0.9, 0.8, 8.0]], dtype=torch.float32),
+            'demographics': torch.tensor([[0.32, 1.0, 0.40, 0.550, 0.583, 0.440, 0.333, 0.388, 0.0, 0.45]], dtype=torch.float32)
         }
         
         # Move to device
